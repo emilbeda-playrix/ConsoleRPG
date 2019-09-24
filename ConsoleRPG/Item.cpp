@@ -4,10 +4,10 @@ Item::Item() {
 	cout << "created";
 }
 
-Item::Item(int x, int y, int type, int typeIndex) {
+Item::Item(int x, int y, int type, const char* name) {
 	this->Picked = false;
 	this->Used = false;
-	this->addItem(x, y, type, typeIndex);
+	this->addItem(x, y, type, name);
 }
 
 Item::~Item() {
@@ -15,11 +15,14 @@ Item::~Item() {
 
 }
 
-void Item::addItem(int x, int y, int type, int typeIndex) {
+void Item::addItem(int x, int y, int type, const char* name) {
 	this->itemPos.X = x;
 	this->itemPos.Y = y;
+	this->Picked = false;
+	this->Used = false;
+	this->Equiped = false;
 	this->Type = type;
-	this->TypeIndex = typeIndex;
+	this->Name = name;
 }
 
 void Item::pickItem() {
@@ -27,13 +30,9 @@ void Item::pickItem() {
 }
 
 void Item::renderItem() {
-
-}
-
-void Item::printItem() {
 	if (!this->Picked) {
 		Console::Get().moveCursor(this->itemPos.X, this->itemPos.Y);
-		Console::Get().setColor(11);
-		cout << (char)254;
+		Console::Get().setColor(14);
+		cout << (char)233;
 	}
 }

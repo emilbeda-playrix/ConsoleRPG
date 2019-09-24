@@ -4,6 +4,6 @@ class Potion : public Item {
 private:
 
 public:
-	Potion(int x, int y, int typeIndex);
+	Potion(int x, int y, const char* name);
 	virtual ~Potion();
 };

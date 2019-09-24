@@ -28,6 +28,8 @@ void Level::loadLevel() {
 }
 
 void Level::renderLevel() {
+	Console::Get().moveCursor(0, 0);
+	Console::Get().setColor(15);
 	for (int i = 0; i <= this->levelHeight; i++) {
 		cout << this->levelLine[i] << "\n";
 	}

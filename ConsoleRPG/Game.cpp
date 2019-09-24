@@ -6,10 +6,15 @@ Game::Game() {
 	level.loadLevel();
 	player.movePlayer(11, 10);
 
+	inventory.addItem(new Armor(0, 0, "Leather Armor", 10, 1));
+	inventory.addItem(new Armor(47, 7, "Warrior Armor", 20, 3));
+	inventory.addItem(new Armor(8, 26, "Knight Armor", 30, 5));
+	inventory.addItem(new Weapon(0, 0, "Dagger", 5, 10, 1));
+	inventory.addItem(new Weapon(55, 1, "Claymore", 2, 30, 3));
+	inventory.addItem(new Weapon(2, 16, "Zweihander", 30, 50, 5));
 
-	inventory.addItem(5, 5, ARMOR, 1);
-	inventory.addItem(10, 5, WEAPON, 1);
-	inventory.addItem(8, 8, POTION, 3);
+	player.equipArmor(inventory.getArmorByName("Leather Armor"));
+	player.equipWeapon(inventory.getWeaponByName("Dagger"));
 
 	renderGame();
 	gameLoop();
@@ -52,7 +57,7 @@ void Game::gameLoop() {
 		
 		break;
 
-	case (char)254:
+	case (char)233:
 		inventory.pickItemOnPlace(currentPos.X, currentPos.Y);
 		player.movePlayer(currentPos.X, currentPos.Y);
 		break;
@@ -66,10 +71,9 @@ void Game::gameLoop() {
 
 void Game::renderGame() {
 	system("CLS");
-	Console::Get().moveCursor(0, 0);
-	Console::Get().setColor(15);
 	level.renderLevel();
 	player.renderPlayer();
+	player.renderPlayerStats();
 	inventory.renderMapItems();
 	inventory.renderInventory();
 }

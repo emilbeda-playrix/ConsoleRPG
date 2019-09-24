@@ -1,12 +1,14 @@
 #pragma once
+#include "commonInc.h"
 #include <iostream>
 #include <conio.h>
-#include "Console.h"
 #include "Level.h"
 #include "Player.h"
 #include "Inventory.h"
-#include "commonInc.h"
 #include "Item.h"
+#include "Armor.h"
+#include "Weapon.h"
+#include "Potion.h"
 
 using namespace std;
 

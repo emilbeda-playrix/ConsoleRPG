@@ -1,50 +1,53 @@
 #include "Inventory.h"
-#include "Armor.h"
-#include "Weapon.h"
-#include "Potion.h"
 
 Inventory::Inventory()
-{
+{	
+	selectEnabled = false;
 }
 
 Inventory::~Inventory()
 {
 }
 
-void Inventory::addItem(int x, int y, int type, int typeIndex) {
-	switch (type)
-	{
-	case WEAPON:
-		this->itemArray.push_back(new Weapon(x, y, typeIndex));
-		break;
-	case ARMOR:
-		this->itemArray.push_back(new Armor(x, y, typeIndex));
-		break;
-	case POTION:
-		this->itemArray.push_back(new Potion(x, y, typeIndex));
-		break;
-	default:
-		break;
+void Inventory::addItem(Item* item) {
+	this->itemArray.push_back(item);
+}
+
+Armor* Inventory::getArmorByName(const char* name) {
+	for (Item* item : this->itemArray) {
+		if (item->Type == ARMOR && item->getName() == name) {
+			Armor* ret = (Armor*)item;
+			return ret;
+		}
+	}
+}
+
+Weapon* Inventory::getWeaponByName(const char* name) {
+	for (Item* item : this->itemArray) {
+		if (item->Type == WEAPON && item->getName() == name) {
+			Weapon* ret = (Weapon*)item;
+			return ret;
+		}
 	}
 }
 
 void Inventory::renderMapItems() {
 	for (Item* item : this->itemArray) {
-		item->printItem();
+		item->renderItem();
 	}
 }
 
 void Inventory::renderInventory() {
-	int cursorPos = 0;
+	int cursorPos = inventoryY;
 	int itemIndex = 1;
-	Console::Get().moveCursor(90, cursorPos++);
+	Console::Get().moveCursor(inventoryX, cursorPos++);
 	Console::Get().setColor(10);
 	cout << "Inventory:";
 
 	for (Item* item : this->itemArray) {
-		if (item->Picked && !item->Used) {
-			Console::Get().moveCursor(90, cursorPos++);
-			cout << itemIndex++ << ": " << item->Name;
+		if (item->Picked && !item->Equiped) {
+			Console::Get().moveCursor(inventoryX, cursorPos++);
+			cout << itemIndex++ << ": " << item->getName();
 		}
 	}
 }
@@ -55,4 +58,19 @@ void Inventory::pickItemOnPlace(int x, int y) {
 			item->pickItem();
 		}
 	}
+}
+
+bool Inventory::enableSelect() {
+	int usableItems = 0;
+	for (Item* item : this->itemArray) {
+		if (item->Picked && !item->Used) {
+			usableItems++;
+		}
+	}
+	if (usableItems > 0) {
+		this->selectEnabled = true;
+		this->selectedIndex = 0;
+		return true;
+	}
+	return false;
 }
