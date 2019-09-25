@@ -11,4 +11,5 @@ public:
 	int getDefence() { return defence; }
 	int getLevel() { return level; }
 	void equipArmor();
+	void unequipArmor();
 };

@@ -4,6 +4,7 @@
 #include <conio.h>
 #include "Level.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "Inventory.h"
 #include "Item.h"
 #include "Armor.h"
@@ -19,9 +20,12 @@ private:
 	Player player;
 	Level level;
 	Inventory inventory;
+	std::vector<Enemy*> enemyArray;
 public:
 	Game();
 	virtual ~Game();
 	void gameLoop();
 	void renderGame();
+	void movePlayer();
+	void inventoryInput();
 };

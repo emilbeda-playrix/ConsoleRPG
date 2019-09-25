@@ -15,6 +15,7 @@ class Inventory
 private:
 	std::vector<Item*> itemArray;
 	int selectedIndex;
+	int usableItemCount;
 	bool selectEnabled;
 	Item* selectedItem;
 public:
@@ -27,6 +28,10 @@ public:
 	Armor* getArmorByName(const char* name);
 	Weapon* getWeaponByName(const char* name);
 
-	bool enableSelect();
+	void toggleSelect();
+	void moveCursor(bool dir);
+
+	bool getSelectActive() { return selectEnabled; }
+	Item* getSelectedItem() { return selectedItem; }
 };
 

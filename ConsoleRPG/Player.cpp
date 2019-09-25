@@ -15,13 +15,45 @@ void Player::movePlayer(int x, int y) {
 }
 
 void Player::equipArmor(Armor* armor) {
-	this->armor = armor;
-	armor->equipArmor();
+	if (this->level >= armor->getLevel()) {
+		if (this->armor) {
+			this->armor->unequipArmor();
+		}
+		this->armor = armor;
+		armor->equipArmor();
+	}
+	else {
+		//log
+	}
 }
 
 void Player::equipWeapon(Weapon* weapon) {
-	this->weapon = weapon;
-	weapon->equipWeapon();
+	if (this->level >= weapon->getLevel()) {
+		if (this->weapon) {
+			this->weapon->unequipWeapon();
+		}
+		this->weapon = weapon;
+		weapon->equipWeapon();
+	}
+	else {
+		//log
+	}
+}
+
+void Player::equipItem(Item* item) {
+	switch (item->Type) 
+	{
+	case WEAPON:
+		this->equipWeapon((Weapon*)item);
+		break;
+	case ARMOR:
+		this->equipArmor((Armor*)item);
+		break;
+	case POTION:
+		break;
+	default:
+		break;
+	}
 }
 
 void Player::renderPlayer() {

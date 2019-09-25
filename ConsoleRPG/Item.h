@@ -1,9 +1,9 @@
 #pragma once
 #include "commonInc.h"
 
-class Item{
+class Item
+{
 private:
-	int TypeIndex;
 	const char* Name;
 public:
 	int Type;

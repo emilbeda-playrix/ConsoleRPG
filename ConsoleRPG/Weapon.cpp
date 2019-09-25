@@ -15,3 +15,7 @@ void Weapon::equipWeapon() {
 	this->Picked = true;
 	this->Equiped = true;
 }
+
+void Weapon::unequipWeapon() {
+	this->Equiped = false;
+}

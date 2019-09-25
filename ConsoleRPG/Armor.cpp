@@ -14,3 +14,7 @@ void Armor::equipArmor() {
 	this->Picked = true;
 	this->Equiped = true;
 }
+
+void Armor::unequipArmor() {
+	this->Equiped = false;
+}

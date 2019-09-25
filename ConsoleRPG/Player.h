@@ -23,4 +23,5 @@ public:
 	void movePlayer(int x, int y);
 	void equipArmor(Armor* armor);
 	void equipWeapon(Weapon* weapon);
+	void equipItem(Item* item);
 };
