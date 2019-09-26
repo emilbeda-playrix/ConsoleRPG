@@ -3,15 +3,15 @@
 
 class Enemy {
 private:
-	Position position;
-	int health;
-	int attack;
-	int defence;
+	Point _position;
+	int _health;
+	int _attack;
+	int _defence;
 public:
 	Enemy();
-	Enemy(int x, int y, int health, int attack, int defence);
+	Enemy(const int x, const int y, const int health, const int attack, const int defence);
 	~Enemy();
 
-	void renderEnemy();
-	Position getPosition() { return position; }
+	void RenderEnemy() const;
+	Point GetPosition() const { return _position; }
 };

@@ -10,20 +10,17 @@ using namespace std;
 
 class Console {
 private:
-
-
+	HANDLE _wHnd;
+	HANDLE _rHnd;
 public:
-	HANDLE wHnd;
-	HANDLE rHnd;
-	static Console& Get() {
+	static Console& GetInstance() {
 		static Console instance;
 		return instance;
 	}
 	Console();
 	~Console();
-	void consoleInit();
-	void moveCursor(int x, int y);
-	char getChar(int x, int y);
-	void setColor(WORD color);
+	void MoveCursor(int x, int y);
+	char GetChar(const int x, const int y) const;
+	void SetColor(const WORD color) const ;
 };
 

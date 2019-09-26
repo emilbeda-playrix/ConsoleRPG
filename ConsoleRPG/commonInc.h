@@ -4,12 +4,12 @@
 #include "Console.h"
 using namespace std;
 
-struct Position {
-	int X;
-	int Y;
-	/*inline bool operator==(const position& p1, const position& p2) {
-		return p1.x == p2.x && p1.y == p2.y;
-	}*/
+struct Point {
+	int x;
+	int y;
+	inline bool operator==(const Point& other) {
+		return x == other.x && y == other.y;
+	}
 };
 
 enum itemTypes { POTION = 0, WEAPON = 1, ARMOR = 2};

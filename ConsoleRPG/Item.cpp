@@ -4,10 +4,10 @@ Item::Item() {
 	cout << "created";
 }
 
-Item::Item(int x, int y, int type, const char* name) {
-	this->Picked = false;
-	this->Used = false;
-	this->addItem(x, y, type, name);
+Item::Item(const int x, const int y, const int type, const char* name) {
+	_picked = false;
+	_used = false;
+	AddItem(x, y, type, name);
 }
 
 Item::~Item() {
@@ -15,24 +15,24 @@ Item::~Item() {
 
 }
 
-void Item::addItem(int x, int y, int type, const char* name) {
-	this->itemPos.X = x;
-	this->itemPos.Y = y;
-	this->Picked = false;
-	this->Used = false;
-	this->Equiped = false;
-	this->Type = type;
-	this->Name = name;
+void Item::AddItem(const int x, const int y, const int type, const char* name) {
+	_itemPos.x = x;
+	_itemPos.y = y;
+	_picked = false;
+	_used = false;
+	_equiped = false;
+	_type = type;
+	_name = name;
 }
 
-void Item::pickItem() {
-	this->Picked = true;
+void Item::PickItem() {
+	_picked = true;
 }
 
-void Item::renderItem() {
-	if (!this->Picked) {
-		Console::Get().moveCursor(this->itemPos.X, this->itemPos.Y);
-		Console::Get().setColor(14);
-		cout << (char)233;
+void Item::RenderItem() const {
+	if (!_picked) {
+		Console::GetInstance().MoveCursor(_itemPos.x, _itemPos.y);
+		Console::GetInstance().SetColor(14);
+		cout << static_cast<char>(233);
 	}
 }

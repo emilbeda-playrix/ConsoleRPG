@@ -5,6 +5,7 @@
 #include "Level.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Enemies.h"
 #include "Inventory.h"
 #include "Item.h"
 #include "Armor.h"
@@ -15,17 +16,18 @@ using namespace std;
 
 class Game {
 private:
-	bool gameActive;
-	char keyPressed;
-	Player player;
-	Level level;
-	Inventory inventory;
-	std::vector<Enemy*> enemyArray;
+	char _keyPressed;
+	Player _player;
+	Level _level;
+	Inventory _inventory;
+	Enemies _enemies;
+	std::vector<Enemy*> _enemyArray;
 public:
 	Game();
 	virtual ~Game();
-	void gameLoop();
-	void renderGame();
-	void movePlayer();
-	void inventoryInput();
+	void GameLoop();
+	void RenderGame();
+	void MovePlayer();
+	void InventoryInput();
+	void Fight(Enemy* enemy);
 };

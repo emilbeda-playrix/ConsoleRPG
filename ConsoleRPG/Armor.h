@@ -3,13 +3,13 @@
 class Armor 
 	: public Item {
 private:
-	int defence;
-	int level;
+	int _defence;
+	int _level;
 public:
 	Armor(int x, int y, const char* name, int defence, int level);
 	virtual ~Armor();
-	int getDefence() { return defence; }
-	int getLevel() { return level; }
-	void equipArmor();
-	void unequipArmor();
+	int GetDefence() const { return _defence; }
+	int GetLevel() const { return _level; }
+	void EquipArmor();
+	void UnequipArmor();
 };

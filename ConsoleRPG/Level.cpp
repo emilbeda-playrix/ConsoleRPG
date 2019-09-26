@@ -5,32 +5,32 @@ Level::Level() {
 
 }
 
-void Level::setLevel(int levelIndex) {
-	this->levelHeight = 0;
-	this->levelIndex = levelIndex;
-	this->fileName = "Level_" + to_string(levelIndex) + ".txt";
+void Level::SetLevel(const int levelIndex) {
+	_levelHeight = 0;
+	_levelIndex = levelIndex;
+	_fileName = "Level_" + to_string(_levelIndex) + ".txt";
 }
 
 Level::~Level() {
 
 }
 
-void Level::loadLevel() {
+void Level::LoadLevel() {
 	int index = 0;
-	ifstream openFile(this->fileName.c_str());
+	ifstream openFile(_fileName.c_str());
 	if (openFile.is_open()) {
 		while (!openFile.eof()) {
-			getline(openFile, this->levelLine[index]);
-			this->levelHeight = index;
+			getline(openFile, _levelLine[index]);
+			_levelHeight = index;
 			index++;
 		}
 	}
 }
 
-void Level::renderLevel() {
-	Console::Get().moveCursor(0, 0);
-	Console::Get().setColor(15);
-	for (int i = 0; i <= this->levelHeight; i++) {
-		cout << this->levelLine[i] << "\n";
+void Level::RenderLevel() const {
+	Console::GetInstance().MoveCursor(0, 0);
+	Console::GetInstance().SetColor(15);
+	for (int i = 0; i <= _levelHeight; i++) {
+		cout << _levelLine[i] << "\n";
 	}
 }

@@ -1,29 +1,29 @@
 #include "Game.h"
 
 Game::Game() {
-	Console::Get().consoleInit();
-	level.setLevel(1);
-	level.loadLevel();
-	player.movePlayer(8, 3);
+	_keyPressed = '\0';
+	_level.SetLevel(1);
+	_level.LoadLevel();
+	_player.MovePlayer(8, 3);
 
-	inventory.addItem(new Armor(0, 0, "Leather Armor", 10, 1));
-	inventory.addItem(new Armor(47, 7, "Warrior Armor", 20, 3));
-	inventory.addItem(new Armor(8, 26, "Knight Armor", 30, 5));
-	inventory.addItem(new Weapon(0, 0, "Dagger", 5, 10, 1));
-	inventory.addItem(new Weapon(55, 1, "Claymore", 2, 30, 3));
-	inventory.addItem(new Weapon(2, 16, "Zweihander", 30, 50, 5));
+	_inventory.AddItem(new Armor(0, 0, "Leather Armor", 10, 1));
+	_inventory.AddItem(new Armor(47, 7, "Warrior Armor", 20, 3));
+	_inventory.AddItem(new Armor(8, 26, "Knight Armor", 30, 5));
+	_inventory.AddItem(new Weapon(0, 0, "Dagger", 5, 10, 1));
+	_inventory.AddItem(new Weapon(55, 1, "Claymore", 2, 30, 3));
+	_inventory.AddItem(new Weapon(2, 16, "Zweihander", 30, 50, 5));
 
-	player.equipArmor(inventory.getArmorByName("Leather Armor"));
-	player.equipWeapon(inventory.getWeaponByName("Dagger"));
+	_player.EquipArmor(_inventory.GetArmorByName("Leather Armor"));
+	_player.EquipWeapon(_inventory.GetWeaponByName("Dagger"));
 
-	enemyArray.push_back(new Enemy(6, 10, 50, 5, 5));
-	enemyArray.push_back(new Enemy(25, 9, 70, 7, 7));
-	enemyArray.push_back(new Enemy(27, 3, 50, 5, 5));
-	enemyArray.push_back(new Enemy(62, 9, 50, 7, 5));
-	enemyArray.push_back(new Enemy(73, 5, 70, 10, 10));
+	_enemies.AddEnemy(6, 10, 50, 5, 5);
+	_enemies.AddEnemy(25, 9, 70, 7, 7);
+	_enemies.AddEnemy(27, 3, 50, 5, 5);
+	_enemies.AddEnemy(62, 9, 50, 7, 5);
+	_enemies.AddEnemy(73, 5, 70, 10, 10);
 	
-	renderGame();
-	gameLoop();
+	RenderGame();
+	GameLoop();
 	cin.get();
 }
 
@@ -31,78 +31,78 @@ Game::~Game() {
 
 }
 
-void Game::gameLoop() {
-	this->keyPressed = tolower(_getch());
-	this->inventoryInput();
-	if (!inventory.getSelectActive()) {
-		this->movePlayer();
+void Game::GameLoop() {
+	_keyPressed = tolower(_getch());
+	InventoryInput();
+	if (!_inventory.GetSelectActive()) {
+		MovePlayer();
 	}
-	renderGame();
-	gameLoop();
+	RenderGame();
+	GameLoop();
 }
 
-void Game::movePlayer() {
-	Position currentPos;
-	currentPos.X = player.getPosition().X;
-	currentPos.Y = player.getPosition().Y;
-	Position playerPos = player.getPosition();
-	switch (this->keyPressed)
+void Game::MovePlayer() {
+	Point currentPos;
+	currentPos.x = _player.GetPosition().x;
+	currentPos.y = _player.GetPosition().y;
+	Point playerPos = _player.GetPosition();
+	switch (_keyPressed)
 	{
 	case 'w':
-		currentPos.Y--;
+		currentPos.y--;
 		break;
 	case 's':
-		currentPos.Y++;
+		currentPos.y++;
 		break;
 	case 'a':
-		currentPos.X--;
+		currentPos.x--;
 		break;
 	case 'd':
-		currentPos.X++;
+		currentPos.x++;
 		break;
 	default:
 		break;
 	}
 
-	char placeChar = Console::Get().getChar(currentPos.X, currentPos.Y);
+	const char placeChar = Console::GetInstance().GetChar(currentPos.x, currentPos.y);
 	switch (placeChar)
 	{
 	case 35:
 		break;
-	case (char)233:
-		inventory.pickItemOnPlace(currentPos.X, currentPos.Y);
-		player.movePlayer(currentPos.X, currentPos.Y);
+	case static_cast<char>(233):
+		_inventory.PickItemOnPlace(currentPos.x, currentPos.y);
+		_player.MovePlayer(currentPos.x, currentPos.y);
 		break;
-	case (char)254:
-		for (Enemy* enemy : this->enemyArray) {
-			if (enemy->getPosition().X == currentPos.X && enemy->getPosition().Y == currentPos.Y) {
-
-			}
-		}
+	case static_cast<char>(254):
+		Fight(_enemies.GetEnemyOnPlace(&currentPos));
 		break;
 	default:
-		player.movePlayer(currentPos.X, currentPos.Y);
+		_player.MovePlayer(currentPos.x, currentPos.y);
 		break;
 	}
 }
 
-void Game::inventoryInput() {
-	switch (this->keyPressed)
+void Game::Fight(Enemy* enemy) {
+
+}
+
+void Game::InventoryInput() {
+	switch (_keyPressed)
 	{
 	case 'w':
-		inventory.moveCursor(false);
+		_inventory.MoveCursor(false);
 		break;
 	case 's':
-		inventory.moveCursor(true);
+		_inventory.MoveCursor(true);
 		break;
 	case 'i':
-		inventory.toggleSelect();
+		_inventory.ToggleSelect();
 		break;
-	case (char)13: {
-		if (inventory.getSelectActive()) {
-			Item* item = inventory.getSelectedItem();
-			player.equipItem(item);
-			inventory.toggleSelect();
+	case static_cast<char>(13): {
+		if (_inventory.GetSelectActive()) {
+			Item* item = _inventory.GetSelectedItem();
+			_player.EquipItem(item);
+			_inventory.ToggleSelect();
 		}
 	}
 	default:
@@ -110,14 +110,12 @@ void Game::inventoryInput() {
 	}
 }
 
-void Game::renderGame() {
+void Game::RenderGame() {
 	system("CLS");
-	level.renderLevel();
-	player.renderPlayer();
-	player.renderPlayerStats();
-	for (Enemy* enemy : this->enemyArray) {
-		enemy->renderEnemy();
-	}
-	inventory.renderMapItems();
-	inventory.renderInventory();
+	_level.RenderLevel();
+	_player.RenderPlayer();
+	_player.RenderPlayerStats();
+	_enemies.RenderEnemies();
+	_inventory.RenderMapItems();
+	_inventory.RenderInventory();
 }

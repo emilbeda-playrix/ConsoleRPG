@@ -4,24 +4,24 @@
 #include "Armor.h"
 #include "Weapon.h"
 
-constexpr int statX = 90;
-constexpr int statY = 0;
+constexpr int statsX = 90;
+constexpr int statsY = 0;
 
 class Player {
 private:
-	Position pos;
-	int health;
-	int level;
-	Armor* armor;
-	Weapon* weapon;
+	Point _position;
+	int _health;
+	int _level;
+	Armor* _armor;
+	Weapon* _weapon;
 public:
 	Player();
 	virtual ~Player();
-	Position getPosition();
-	void renderPlayer();
-	void renderPlayerStats();
-	void movePlayer(int x, int y);
-	void equipArmor(Armor* armor);
-	void equipWeapon(Weapon* weapon);
-	void equipItem(Item* item);
+	Point GetPosition() const { return _position; }
+	void RenderPlayer() const;
+	void RenderPlayerStats();
+	void MovePlayer(int x, int y);
+	void EquipArmor(Armor* armor);
+	void EquipWeapon(Weapon* weapon);
+	void EquipItem(Item* item);
 };

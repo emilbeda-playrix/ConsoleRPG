@@ -1,53 +1,53 @@
 #include "Player.h"
 
 Player::Player() {
-	this->level = 1;
-	this->health = 100;
+	_level = 1;
+	_health = 100;
 }
 
 Player::~Player() {
 	
 }
 
-void Player::movePlayer(int x, int y) {
-	this->pos.X = x;
-	this->pos.Y = y;
+void Player::MovePlayer(int x, int y) {
+	_position.x = x;
+	_position.y = y;
 }
 
-void Player::equipArmor(Armor* armor) {
-	if (this->level >= armor->getLevel()) {
-		if (this->armor) {
-			this->armor->unequipArmor();
+void Player::EquipArmor(Armor* armor) {
+	if (_level >= armor->GetLevel()) {
+		if (_armor) {
+			_armor->UnequipArmor();
 		}
-		this->armor = armor;
-		armor->equipArmor();
+		_armor = armor;
+		armor->EquipArmor();
 	}
 	else {
 		//log
 	}
 }
 
-void Player::equipWeapon(Weapon* weapon) {
-	if (this->level >= weapon->getLevel()) {
-		if (this->weapon) {
-			this->weapon->unequipWeapon();
+void Player::EquipWeapon(Weapon* weapon) {
+	if (_level >= weapon->GetLevel()) {
+		if (_weapon) {
+			_weapon->UnequipWeapon();
 		}
-		this->weapon = weapon;
-		weapon->equipWeapon();
+		_weapon = weapon;
+		weapon->EquipWeapon();
 	}
 	else {
 		//log
 	}
 }
 
-void Player::equipItem(Item* item) {
-	switch (item->Type) 
+void Player::EquipItem(Item* item) {
+	switch (item->_type) 
 	{
 	case WEAPON:
-		this->equipWeapon((Weapon*)item);
+		EquipWeapon(dynamic_cast<Weapon*>(item));
 		break;
 	case ARMOR:
-		this->equipArmor((Armor*)item);
+		EquipArmor(dynamic_cast<Armor*>(item));
 		break;
 	case POTION:
 		break;
@@ -56,35 +56,31 @@ void Player::equipItem(Item* item) {
 	}
 }
 
-void Player::renderPlayer() {
-	Console::Get().moveCursor(this->pos.X,this->pos.Y);
-	Console::Get().setColor(14);
+void Player::RenderPlayer() const {
+	Console::GetInstance().MoveCursor(_position.x,_position.y);
+	Console::GetInstance().SetColor(14);
 	cout << "@";
 }
 
-void Player::renderPlayerStats() {
-	Console::Get().setColor(14);
-	int line = statY;
-	Console::Get().moveCursor(statX, line++);
-	cout << "Health: " << this->health;
-	Console::Get().moveCursor(statX, line++);
-	cout << "Level: " << this->level;
-	Console::Get().moveCursor(statX, line++);
-	if (this->armor) {
-		cout << "Armor: " << this->armor->getName();
-		Console::Get().moveCursor(statX, line++);
-		cout << "Defence: " << this->armor->getDefence();
-		Console::Get().moveCursor(statX, line++);
+void Player::RenderPlayerStats() {
+	Console::GetInstance().SetColor(14);
+	int line = statsY;
+	Console::GetInstance().MoveCursor(statsX, line++);
+	cout << "Health: " << _health;
+	Console::GetInstance().MoveCursor(statsX, line++);
+	cout << "Level: " << _level;
+	Console::GetInstance().MoveCursor(statsX, line++);
+	if (_armor) {
+		cout << "Armor: " << _armor->GetName();
+		Console::GetInstance().MoveCursor(statsX, line++);
+		cout << "Defence: " << _armor->GetDefence();
+		Console::GetInstance().MoveCursor(statsX, line++);
 	}
-	if (this->weapon) {
-		cout << "Weapon: " << this->weapon->getName();
-		Console::Get().moveCursor(statX, line++);
-		cout << "Attack: " << this->weapon->getAttack();
-		Console::Get().moveCursor(statX, line++);
-		cout << "Durability: " << this->weapon->getDurability();
+	if (_weapon) {
+		cout << "Weapon: " << _weapon->GetName();
+		Console::GetInstance().MoveCursor(statsX, line++);
+		cout << "Attack: " << _weapon->GetAttack();
+		Console::GetInstance().MoveCursor(statsX, line++);
+		cout << "Durability: " << _weapon->GetDurability();
 	}
-}
-
-Position Player::getPosition() {
-	return pos;
 }

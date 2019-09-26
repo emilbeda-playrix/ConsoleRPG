@@ -13,25 +13,25 @@ constexpr int inventoryY = 10;
 class Inventory
 {
 private:
-	std::vector<Item*> itemArray;
-	int selectedIndex;
-	int usableItemCount;
-	bool selectEnabled;
-	Item* selectedItem;
+	std::vector<Item*> _itemArray;
+	int _selectedIndex;
+	int _usableItemCount;
+	bool _selectEnabled;
+	Item* _selectedItem;
 public:
 	Inventory();
-	~Inventory();
-	void addItem(Item* item);
-	void renderMapItems();
-	void renderInventory();
-	void pickItemOnPlace(int x, int y);
-	Armor* getArmorByName(const char* name);
-	Weapon* getWeaponByName(const char* name);
+	virtual ~Inventory();
+	void AddItem(Item* item);
+	void RenderMapItems();
+	void RenderInventory();
+	void PickItemOnPlace(int x, int y);
+	Armor* GetArmorByName(const char* name);
+	Weapon* GetWeaponByName(const char* name);
 
-	void toggleSelect();
-	void moveCursor(bool dir);
+	void ToggleSelect();
+	void MoveCursor(bool dir);
 
-	bool getSelectActive() { return selectEnabled; }
-	Item* getSelectedItem() { return selectedItem; }
+	bool GetSelectActive() const { return _selectEnabled; }
+	Item* GetSelectedItem() const { return _selectedItem; }
 };
 

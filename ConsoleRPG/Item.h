@@ -4,18 +4,18 @@
 class Item
 {
 private:
-	const char* Name;
+	const char* _name;
 public:
-	int Type;
-	bool Picked;
-	bool Used;
-	bool Equiped;
-	Position itemPos;
+	int _type;
+	bool _picked;
+	bool _used;
+	bool _equiped;
+	Point _itemPos;
 	Item();
-	Item(int x, int y, int type, const char* name);
-	~Item();
-	void addItem(int x, int y, int type, const char* name);
-	void pickItem();
-	void renderItem();
-	const char* getName() { return Name; }
+	Item(const int x, const int y, const int type, const char* name);
+	virtual ~Item();
+	void AddItem(const int x, const int y, const int type, const char* name);
+	void PickItem();
+	void RenderItem() const;
+	const char* GetName() const { return _name; }
 };

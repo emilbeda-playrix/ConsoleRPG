@@ -8,16 +8,16 @@ Enemy::~Enemy() {
 
 }
 
-Enemy::Enemy(int x, int y, int health, int attack, int defence) {
-	this->position.X = x;
-	this->position.Y = y;
-	this->health = health;
-	this->attack = attack;
-	this->defence = defence;
+Enemy::Enemy(const int x, const int y, const int health, const int attack, const int defence) {
+	_position.x = x;
+	_position.y = y;
+	_health = health;
+	_attack = attack;
+	_defence = defence;
 }
 
-void Enemy::renderEnemy() {
-	Console::Get().moveCursor(this->position.X, this->position.Y);
-	Console::Get().setColor(12);
-	cout << (char)254;
+void Enemy::RenderEnemy() const {
+	Console::GetInstance().MoveCursor(_position.x, _position.y);
+	Console::GetInstance().SetColor(12);
+	cout << static_cast<char>(254);
 }

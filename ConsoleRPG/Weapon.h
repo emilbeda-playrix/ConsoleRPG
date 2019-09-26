@@ -3,15 +3,15 @@
 
 class Weapon : public Item {
 private:
-	int attack;
-	int durability;
-	int level;
+	int _attack;
+	int _durability;
+	int _level;
 public:
-	Weapon(int x, int y, const char* name, int attack, int durability, int level);
+	Weapon(const int x, const int y, const char* name, const int attack, const int durability, const int level);
 	virtual ~Weapon();
-	void equipWeapon();
-	void unequipWeapon();
-	int getAttack() { return attack; }
-	int getDurability() { return durability; }
-	int getLevel() { return level; }
+	void EquipWeapon();
+	void UnequipWeapon();
+	int GetAttack() const { return _attack; }
+	int GetDurability() const { return _durability; }
+	int GetLevel() const { return _level; }
 };

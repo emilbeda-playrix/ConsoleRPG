@@ -2,98 +2,98 @@
 
 Inventory::Inventory()
 {	
-	selectEnabled = false;
+	_selectEnabled = false;
 }
 
 Inventory::~Inventory()
 {
 }
 
-void Inventory::addItem(Item* item) {
-	this->itemArray.push_back(item);
+void Inventory::AddItem(Item* item) {
+	_itemArray.push_back(item);
 }
 
-Armor* Inventory::getArmorByName(const char* name) {
-	for (Item* item : this->itemArray) {
-		if (item->Type == ARMOR && item->getName() == name) {
-			Armor* ret = (Armor*)item;
+Armor* Inventory::GetArmorByName(const char* name) {
+	for (Item* item : _itemArray) {
+		if (item->_type == ARMOR && item->GetName() == name) {
+			auto* ret = dynamic_cast<Armor*>(item);
 			return ret;
 		}
 	}
 }
 
-Weapon* Inventory::getWeaponByName(const char* name) {
-	for (Item* item : this->itemArray) {
-		if (item->Type == WEAPON && item->getName() == name) {
-			Weapon* ret = (Weapon*)item;
+Weapon* Inventory::GetWeaponByName(const char* name) {
+	for (Item* item : _itemArray) {
+		if (item->_type == WEAPON && item->GetName() == name) {
+			auto* ret = dynamic_cast<Weapon*>(item);
 			return ret;
 		}
 	}
 }
 
-void Inventory::renderMapItems() {
-	for (Item* item : this->itemArray) {
-		item->renderItem();
+void Inventory::RenderMapItems() {
+	for (Item* item : _itemArray) {
+		item->RenderItem();
 	}
 }
 
-void Inventory::renderInventory() {
+void Inventory::RenderInventory() {
 	int cursorPos = inventoryY;
 	int itemIndex = 1;
-	Console::Get().moveCursor(inventoryX, cursorPos++);
-	Console::Get().setColor(10);
+	Console::GetInstance().MoveCursor(inventoryX, cursorPos++);
+	Console::GetInstance().SetColor(10);
 	cout << "Inventory:";
 
-	for (Item* item : this->itemArray) {
-		if (item->Picked && !item->Equiped) {
-			Console::Get().moveCursor(inventoryX, cursorPos++);
-			if (this->selectEnabled && itemIndex == this->selectedIndex) {
-				Console::Get().setColor(250);
-				this->selectedItem = item;
+	for (Item* item : _itemArray) {
+		if (item->_picked && !item->_equiped) {
+			Console::GetInstance().MoveCursor(inventoryX, cursorPos++);
+			if (_selectEnabled && itemIndex == _selectedIndex) {
+				Console::GetInstance().SetColor(250);
+				_selectedItem = item;
 			}
 			else {
-				Console::Get().setColor(10);
+				Console::GetInstance().SetColor(10);
 			}
-			cout << itemIndex++ << ": " << item->getName();
+			cout << itemIndex++ << ": " << item->GetName();
 		}
 	}
-	Console::Get().setColor(10);
+	Console::GetInstance().SetColor(10);
 }
 
-void Inventory::pickItemOnPlace(int x, int y) {
-	for (Item* item : this->itemArray) {
-		if (!item->Picked && item->itemPos.X == x && item->itemPos.Y == y) {
-			item->pickItem();
+void Inventory::PickItemOnPlace(int x, int y) {
+	for (Item* item : _itemArray) {
+		if (!item->_picked && item->_itemPos.x == x && item->_itemPos.y == y) {
+			item->PickItem();
 		}
 	}
 }
 
-void Inventory::toggleSelect() {
-	if (!this->selectEnabled) {
-		this->usableItemCount = 0;
-		for (Item* item : this->itemArray) {
-			if (item->Picked && !item->Used && !item->Equiped) {
-				this->usableItemCount++;
-				if (this->usableItemCount == 1) { this->selectedItem = item; }
+void Inventory::ToggleSelect() {
+	if (!_selectEnabled) {
+		_usableItemCount = 0;
+		for (Item* item : _itemArray) {
+			if (item->_picked && !item->_used && !item->_equiped) {
+				_usableItemCount++;
+				if (_usableItemCount == 1) { _selectedItem = item; }
 			}
 		}
-		if (this->usableItemCount > 0) {
-			this->selectEnabled = true;
-			this->selectedIndex = 1;
+		if (_usableItemCount > 0) {
+			_selectEnabled = true;
+			_selectedIndex = 1;
 		}
 	}
 	else {
-		this->selectEnabled = false;
+		_selectEnabled = false;
 	}
 }
 
-void Inventory::moveCursor(bool dir) {
-	if (this->selectEnabled) {
+void Inventory::MoveCursor(bool dir) {
+	if (_selectEnabled) {
 		if (dir) {
-			if (this->selectedIndex < this->usableItemCount) { this->selectedIndex++; }
+			if (_selectedIndex < _usableItemCount) { _selectedIndex++; }
 		}
 		else {
-			if (this->selectedIndex > 1) { this->selectedIndex--; }
+			if (_selectedIndex > 1) { _selectedIndex--; }
 		}
 	}
 }

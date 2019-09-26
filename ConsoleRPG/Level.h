@@ -4,15 +4,15 @@
 
 class Level {
 private:
-	int levelIndex;
-	int levelHeight;
-	string fileName;
-	string levelLine[HEIGHT];
+	int _levelIndex;
+	int _levelHeight;
+	string _fileName;
+	string _levelLine[HEIGHT];
 public:
 	Level();
 	virtual ~Level();
 
-	void setLevel(int levelIndex);
-	void loadLevel();
-	void renderLevel();
+	void SetLevel(const int levelIndex);
+	void LoadLevel();
+	void RenderLevel() const;
 };
