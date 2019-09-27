@@ -5,6 +5,7 @@ Item::Item() {
 }
 
 Item::Item(const int x, const int y, const int type, const char* name) {
+	_removeFlag = false;
 	_picked = false;
 	_used = false;
 	AddItem(x, y, type, name);
@@ -16,6 +17,7 @@ Item::~Item() {
 }
 
 void Item::AddItem(const int x, const int y, const int type, const char* name) {
+	_removeFlag = false;
 	_itemPos.x = x;
 	_itemPos.y = y;
 	_picked = false;

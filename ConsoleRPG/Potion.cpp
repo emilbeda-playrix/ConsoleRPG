@@ -1,9 +1,10 @@
 #include "Potion.h"
 
-Potion::Potion(int x, int y, const char* name) {
+Potion::Potion(const int x, const int y, const char* name, const int potionType) {
+	_potionType = potionType;
 	AddItem(x, y, POTION, name);
 }
 
 Potion::~Potion() {
-
+	cout << "destroyed";
 }

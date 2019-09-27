@@ -9,7 +9,8 @@ private:
 public:
 	Enemies();
 	~Enemies();
-	void AddEnemy(int x, int y, int health, int attack, int defence);
+	void AddEnemy(const int x, const int y, const int health, const int attack, const int defence);
 	void RenderEnemies();
 	Enemy* GetEnemyOnPlace(Point* place);
+	void RemoveDefeated();
 };

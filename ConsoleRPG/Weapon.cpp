@@ -2,6 +2,7 @@
 
 Weapon::Weapon(const int x, const int y, const char* name, const int attack, const int durability, const int level) {
 	_attack = attack;
+	_maxDurability = durability;
 	_durability = durability;
 	_level = level;
 	AddItem(x, y, WEAPON, name);

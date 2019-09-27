@@ -1,8 +1,9 @@
 #include "Player.h"
 
 Player::Player() {
-	_level = 1;
-	_health = 100;
+	_level = 10;
+	_maxHealth = 100;
+	_health = _maxHealth;
 }
 
 Player::~Player() {
@@ -40,6 +41,23 @@ void Player::EquipWeapon(Weapon* weapon) {
 	}
 }
 
+void Player::UsePotion(Potion* item)
+{
+	switch (item->GetPotionType())
+	{
+	case static_cast<int>(PotionTypes::Heal) :
+		_health = _maxHealth;
+		break;
+	case static_cast<int>(PotionTypes::Repair) :
+		_weapon->ResetDurability();
+		break;
+	default:
+		break;
+	}
+	item->SetRemoveFlag();
+}
+
+
 void Player::EquipItem(Item* item) {
 	switch (item->_type) 
 	{
@@ -50,11 +68,24 @@ void Player::EquipItem(Item* item) {
 		EquipArmor(dynamic_cast<Armor*>(item));
 		break;
 	case POTION:
+		UsePotion(dynamic_cast<Potion*>(item));
 		break;
 	default:
 		break;
 	}
 }
+
+bool Player::Attacked(int strength)
+{
+	strength -= (_armor->GetDefence() < strength) ? _armor->GetDefence() : strength - 1;
+	_health -= (strength <= _health) ? strength : _health;
+	if (_health == 0)
+	{
+		return true;
+	}
+	return false;
+}
+
 
 void Player::RenderPlayer() const {
 	Console::GetInstance().MoveCursor(_position.x,_position.y);

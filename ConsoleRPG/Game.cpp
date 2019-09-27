@@ -6,21 +6,24 @@ Game::Game() {
 	_level.LoadLevel();
 	_player.MovePlayer(8, 3);
 
-	_inventory.AddItem(new Armor(0, 0, "Leather Armor", 10, 1));
-	_inventory.AddItem(new Armor(47, 7, "Warrior Armor", 20, 3));
-	_inventory.AddItem(new Armor(8, 26, "Knight Armor", 30, 5));
-	_inventory.AddItem(new Weapon(0, 0, "Dagger", 5, 10, 1));
-	_inventory.AddItem(new Weapon(55, 1, "Claymore", 2, 30, 3));
-	_inventory.AddItem(new Weapon(2, 16, "Zweihander", 30, 50, 5));
+	_inventory.AddArmor(0, 0, "Leather Armor", 10, 1);
+	_inventory.AddArmor(47, 7, "Warrior Armor", 20, 3);
+	_inventory.AddArmor(8, 26, "Knight Armor", 30, 5);
+	
+	_inventory.AddWeapon(0, 0, "Dagger", 15, 10, 1);
+	_inventory.AddWeapon(55, 1, "Claymore", 30, 30, 3);
+	_inventory.AddWeapon(2, 16, "Zweihander", 50, 50, 5);
 
+	_inventory.AddPotion(21, 2, "Health Potion", static_cast<int>(PotionTypes::Heal));
+	
 	_player.EquipArmor(_inventory.GetArmorByName("Leather Armor"));
 	_player.EquipWeapon(_inventory.GetWeaponByName("Dagger"));
 
-	_enemies.AddEnemy(6, 10, 50, 5, 5);
-	_enemies.AddEnemy(25, 9, 70, 7, 7);
-	_enemies.AddEnemy(27, 3, 50, 5, 5);
-	_enemies.AddEnemy(62, 9, 50, 7, 5);
-	_enemies.AddEnemy(73, 5, 70, 10, 10);
+	_enemies.AddEnemy(6, 10, 50, 10, 5);
+	_enemies.AddEnemy(25, 9, 70, 15, 7);
+	_enemies.AddEnemy(27, 3, 50, 10, 5);
+	_enemies.AddEnemy(62, 9, 50, 15, 5);
+	_enemies.AddEnemy(73, 5, 70, 20, 10);
 	
 	RenderGame();
 	GameLoop();
@@ -42,10 +45,7 @@ void Game::GameLoop() {
 }
 
 void Game::MovePlayer() {
-	Point currentPos;
-	currentPos.x = _player.GetPosition().x;
-	currentPos.y = _player.GetPosition().y;
-	Point playerPos = _player.GetPosition();
+	Point currentPos = _player.GetPosition();
 	switch (_keyPressed)
 	{
 	case 'w':
@@ -63,7 +63,6 @@ void Game::MovePlayer() {
 	default:
 		break;
 	}
-
 	const char placeChar = Console::GetInstance().GetChar(currentPos.x, currentPos.y);
 	switch (placeChar)
 	{
@@ -83,7 +82,15 @@ void Game::MovePlayer() {
 }
 
 void Game::Fight(Enemy* enemy) {
-
+	const bool enemyDefeated = enemy->Attacked(_player.GetAttackStrength());
+	if (!enemyDefeated)
+	{
+		const bool playerDefeated = _player.Attacked(enemy->GetAttackStrength());
+	}
+	else
+	{
+		_enemies.RemoveDefeated();
+	}
 }
 
 void Game::InventoryInput() {
@@ -100,8 +107,9 @@ void Game::InventoryInput() {
 		break;
 	case static_cast<char>(13): {
 		if (_inventory.GetSelectActive()) {
-			Item* item = _inventory.GetSelectedItem();
-			_player.EquipItem(item);
+			std::shared_ptr<Item> item(_inventory.GetSelectedItem());
+			_player.EquipItem(item.get());
+			_inventory.CheckRemoveFlags();
 			_inventory.ToggleSelect();
 		}
 	}

@@ -19,8 +19,8 @@ private:
 	char _keyPressed;
 	Player _player;
 	Level _level;
-	Inventory _inventory;
 	Enemies _enemies;
+	Inventory _inventory;
 	std::vector<Enemy*> _enemyArray;
 public:
 	Game();

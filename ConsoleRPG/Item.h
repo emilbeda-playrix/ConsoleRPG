@@ -10,6 +10,7 @@ public:
 	bool _picked;
 	bool _used;
 	bool _equiped;
+	bool _removeFlag;
 	Point _itemPos;
 	Item();
 	Item(const int x, const int y, const int type, const char* name);
@@ -18,4 +19,5 @@ public:
 	void PickItem();
 	void RenderItem() const;
 	const char* GetName() const { return _name; }
+	void SetRemoveFlag() { _removeFlag = true; }
 };

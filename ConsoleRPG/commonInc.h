@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "Console.h"
+#include <memory>
 using namespace std;
 
 struct Point {
@@ -13,4 +14,6 @@ struct Point {
 };
 
 enum itemTypes { POTION = 0, WEAPON = 1, ARMOR = 2};
+
+enum class PotionTypes { Heal = 1, Repair = 2 };
 
