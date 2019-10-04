@@ -1,33 +1,48 @@
 #pragma once
-#include "commonInc.h"
+
 #include <iostream>
 #include <conio.h>
-#include "Level.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "Enemies.h"
-#include "Inventory.h"
-#include "Item.h"
-#include "Armor.h"
-#include "Weapon.h"
-#include "Potion.h"
+#include <stdlib.h>
+#include "Common/commonInc.h"
+#include "Map/Map.h"
+#include "Characters/Player.h"
+#include "Characters/Enemies.h"
+#include "Inventory/Inventory.h"
 
-using namespace std;
 
+class Enemy;
 class Game {
 private:
 	char _keyPressed;
 	Player _player;
-	Level _level;
-	Enemies _enemies;
+	Map _map;
+
 	Inventory _inventory;
-	std::vector<Enemy*> _enemyArray;
+
+
+	Enemies _enemies;
+	
 public:
+	Game(Game const&) = delete;
+	void operator = (Game const&) = delete;
+	
+	std::vector<Drawable*> _drawableItems;
+	static Game& GetInstance() {
+		static Game instance;
+		return instance;
+	}
 	Game();
 	virtual ~Game();
+
+	void Init();
+	void LoadElements();
 	void GameLoop();
 	void RenderGame();
 	void MovePlayer();
 	void InventoryInput();
 	void Fight(Enemy* enemy);
+
+	void AddDrawable(Drawable* item);
+	void RemoveDrawable();
+	
 };

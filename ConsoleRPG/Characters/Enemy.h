@@ -1,7 +1,7 @@
 #pragma once
-#include "commonInc.h"
+#include "../Common/commonInc.h"
 
-class Enemy {
+class Enemy : public Drawable {
 private:
 	Point _position;
 	int _health;
@@ -13,7 +13,7 @@ public:
 	Enemy(const int x, const int y, const int health, const int attack, const int defence);
 	~Enemy();
 
-	void RenderEnemy() const;
+	void Render() override;
 	Point GetPosition() const { return _position; }
 	bool Attacked(int strength);
 	int GetAttackStrength() const { return _attack; }

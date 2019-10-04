@@ -1,16 +1,15 @@
 #pragma once
-#include "commonInc.h"
+#include "../Common/commonInc.h"
 #include "Enemy.h"
-#include <vector>
 
+class Enemy;
 class Enemies {
 private:
-	vector<Enemy*> _enemyArray;
+	std::vector<std::shared_ptr<Enemy>> _enemyArray;
 public:
 	Enemies();
 	~Enemies();
 	void AddEnemy(const int x, const int y, const int health, const int attack, const int defence);
-	void RenderEnemies();
-	Enemy* GetEnemyOnPlace(Point* place);
+	Enemy* GetEnemyOnPlace(Point& place);
 	void RemoveDefeated();
 };

@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{7C495FD7-582C-44CB-B088-CEB293068A1F}</ProjectGuid>
     <RootNamespace>ConsoleRPG</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -115,32 +115,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Armor.cpp" />
-    <ClCompile Include="Console.cpp" />
-    <ClCompile Include="Enemies.cpp" />
-    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Inventory\Armor.cpp" />
+    <ClCompile Include="Window\Console.cpp" />
+    <ClCompile Include="Characters\Enemies.cpp" />
+    <ClCompile Include="Characters\Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Inventory.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Inventory\Inventory.cpp" />
+    <ClCompile Include="Inventory\Item.cpp" />
+    <ClCompile Include="Map\Map.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Potion.cpp" />
-    <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="Characters\Player.cpp" />
+    <ClCompile Include="Inventory\Potion.cpp" />
+    <ClCompile Include="Inventory\Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Armor.h" />
-    <ClInclude Include="commonInc.h" />
-    <ClInclude Include="Console.h" />
-    <ClInclude Include="Enemies.h" />
-    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Common\Drawable.h" />
+    <ClInclude Include="Inventory\Armor.h" />
+    <ClInclude Include="Common\commonInc.h" />
+    <ClInclude Include="Window\Console.h" />
+    <ClInclude Include="Characters\Enemies.h" />
+    <ClInclude Include="Characters\Enemy.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Inventory.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="Level.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Potion.h" />
-    <ClInclude Include="Weapon.h" />
+    <ClInclude Include="Inventory\Inventory.h" />
+    <ClInclude Include="Inventory\Item.h" />
+    <ClInclude Include="Map\Map.h" />
+    <ClInclude Include="Characters\Player.h" />
+    <ClInclude Include="Inventory\Potion.h" />
+    <ClInclude Include="Inventory\Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,7 +1,7 @@
-#include "item.h"
+#include "Item.h"
+#include "../Game.h"
 
 Item::Item() {
-	cout << "created";
 }
 
 Item::Item(const int x, const int y, const int type, const char* name) {
@@ -12,8 +12,6 @@ Item::Item(const int x, const int y, const int type, const char* name) {
 }
 
 Item::~Item() {
-	cout << "destroyed";
-
 }
 
 void Item::AddItem(const int x, const int y, const int type, const char* name) {
@@ -25,16 +23,28 @@ void Item::AddItem(const int x, const int y, const int type, const char* name) {
 	_equiped = false;
 	_type = type;
 	_name = name;
+
+	AddDrawable();
+	
 }
 
 void Item::PickItem() {
 	_picked = true;
+	RemoveDrawable();
 }
 
-void Item::RenderItem() const {
-	if (!_picked) {
-		Console::GetInstance().MoveCursor(_itemPos.x, _itemPos.y);
-		Console::GetInstance().SetColor(14);
-		cout << static_cast<char>(233);
-	}
+void Item::AddDrawable()
+{
+	Game::GetInstance().AddDrawable(this);
+}
+
+void Item::RemoveDrawable()
+{
+	_removeDrawable = true;
+	Game::GetInstance().RemoveDrawable();
+}
+
+void Item::Render()
+{
+	Console::GetInstance().Print(_itemPos.x, _itemPos.y, std::string(1, static_cast<char>(Symbols::Item)), 9);
 }

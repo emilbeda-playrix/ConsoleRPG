@@ -1,7 +1,8 @@
 #include "Player.h"
+#include "../Game.h"
 
 Player::Player() {
-	_level = 10;
+	_level = 1;
 	_maxHealth = 100;
 	_health = _maxHealth;
 }
@@ -10,7 +11,12 @@ Player::~Player() {
 	
 }
 
-void Player::MovePlayer(int x, int y) {
+void Player::Init()
+{
+	Game::GetInstance().AddDrawable(this);
+}
+
+void Player::MovePlayer(const int x, const int y) {
 	_position.x = x;
 	_position.y = y;
 }
@@ -59,15 +65,15 @@ void Player::UsePotion(Potion* item)
 
 
 void Player::EquipItem(Item* item) {
-	switch (item->_type) 
+	switch (item->GetType())
 	{
-	case WEAPON:
+	case static_cast<int>(ItemTypes::Weapon):
 		EquipWeapon(dynamic_cast<Weapon*>(item));
 		break;
-	case ARMOR:
+	case static_cast<int>(ItemTypes::Armor):
 		EquipArmor(dynamic_cast<Armor*>(item));
 		break;
-	case POTION:
+		case static_cast<int>(ItemTypes::Potion):
 		UsePotion(dynamic_cast<Potion*>(item));
 		break;
 	default:
@@ -77,6 +83,7 @@ void Player::EquipItem(Item* item) {
 
 bool Player::Attacked(int strength)
 {
+	_weapon->SubDurability();
 	strength -= (_armor->GetDefence() < strength) ? _armor->GetDefence() : strength - 1;
 	_health -= (strength <= _health) ? strength : _health;
 	if (_health == 0)
@@ -87,31 +94,24 @@ bool Player::Attacked(int strength)
 }
 
 
-void Player::RenderPlayer() const {
-	Console::GetInstance().MoveCursor(_position.x,_position.y);
-	Console::GetInstance().SetColor(14);
-	cout << "@";
-}
+void Player::Render() {
+	Console::GetInstance().Print(_position.x, _position.y, std::string(1, static_cast<char>(Symbols::Player)), 14);
 
-void Player::RenderPlayerStats() {
-	Console::GetInstance().SetColor(14);
+	//stats
 	int line = statsY;
-	Console::GetInstance().MoveCursor(statsX, line++);
-	cout << "Health: " << _health;
-	Console::GetInstance().MoveCursor(statsX, line++);
-	cout << "Level: " << _level;
-	Console::GetInstance().MoveCursor(statsX, line++);
+	
+	Console::GetInstance().Print(statsX, line++, "Health: " + std::to_string(_health), 14);
+	Console::GetInstance().Print(statsX, line++, "Level: " + std::to_string(_level), 14);
 	if (_armor) {
-		cout << "Armor: " << _armor->GetName();
-		Console::GetInstance().MoveCursor(statsX, line++);
-		cout << "Defence: " << _armor->GetDefence();
-		Console::GetInstance().MoveCursor(statsX, line++);
+		Console::GetInstance().Print(statsX, line++, "Armor: " + std::string(_armor->GetName()), 14);
+		Console::GetInstance().Print(statsX, line++, "Defence: " + std::to_string(_armor->GetDefence()), 14);
 	}
 	if (_weapon) {
-		cout << "Weapon: " << _weapon->GetName();
-		Console::GetInstance().MoveCursor(statsX, line++);
-		cout << "Attack: " << _weapon->GetAttack();
-		Console::GetInstance().MoveCursor(statsX, line++);
-		cout << "Durability: " << _weapon->GetDurability();
+		Console::GetInstance().Print(statsX, line++, "Weapon: " + std::string(_weapon->GetName()), 14);
+		Console::GetInstance().Print(statsX, line++, "Attack: " + std::to_string(_weapon->GetAttack()), 14);
+		Console::GetInstance().Print(statsX,line++, "Durability: " + std::to_string(_weapon->GetDurability()),14);
 	}
+}
+
+void Player::RenderPlayerStats() const {
 }

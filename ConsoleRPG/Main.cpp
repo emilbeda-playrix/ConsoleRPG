@@ -1,5 +1,12 @@
 #include "Game.h"
 
 int main() {
-	Game game;
+	bool gameActive = true;
+	Game::GetInstance().Init();
+	Game::GetInstance().LoadElements();
+	while (gameActive)
+	{
+		Game::GetInstance().GameLoop();
+	}
+	
 }

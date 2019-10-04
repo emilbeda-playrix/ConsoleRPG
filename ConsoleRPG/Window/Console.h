@@ -5,9 +5,6 @@
 #define WIDTH 120
 #define HEIGHT 40
 
-
-using namespace std;
-
 class Console {
 private:
 	HANDLE _wHnd;
@@ -19,8 +16,9 @@ public:
 	}
 	Console();
 	~Console();
-	void MoveCursor(int x, int y);
+	void MoveCursor(const int x, const int y) const;
 	char GetChar(const int x, const int y) const;
 	void SetColor(const WORD color) const ;
+	void Print(const int x, const int y, const std::string& text, const int color) const;
 };
 

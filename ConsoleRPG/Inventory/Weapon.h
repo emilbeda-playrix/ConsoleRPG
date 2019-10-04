@@ -12,8 +12,9 @@ public:
 	virtual ~Weapon();
 	void EquipWeapon();
 	void UnequipWeapon();
-	int GetAttack() const { return _attack; }
+	int GetAttack() const { return _durability > 0 ? _attack : 1; }
 	int GetDurability() const { return _durability; }
+	void SubDurability() { _durability > 0 ? _durability-- : _durability; }
 	int GetLevel() const { return _level; }
 	void ResetDurability() { _durability = _maxDurability; }
 };

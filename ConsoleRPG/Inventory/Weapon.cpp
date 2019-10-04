@@ -5,7 +5,7 @@ Weapon::Weapon(const int x, const int y, const char* name, const int attack, con
 	_maxDurability = durability;
 	_durability = durability;
 	_level = level;
-	AddItem(x, y, WEAPON, name);
+	AddItem(x, y, static_cast<int>(ItemTypes::Weapon), name);
 }
 
 Weapon::~Weapon() {
@@ -15,8 +15,10 @@ Weapon::~Weapon() {
 void Weapon::EquipWeapon() {
 	_picked = true;
 	_equiped = true;
+	RemoveDrawable();
 }
 
 void Weapon::UnequipWeapon() {
 	_equiped = false;
+	AddDrawable();
 }

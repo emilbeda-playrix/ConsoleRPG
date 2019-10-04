@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "../Game.h"
 
 Enemy::Enemy() {
 
@@ -15,15 +16,11 @@ Enemy::Enemy(const int x, const int y, const int health, const int attack, const
 	_attack = attack;
 	_defence = defence;
 	_defeated = false;
+	Game::GetInstance().AddDrawable(this);
 }
 
-void Enemy::RenderEnemy() const {
-	if (!_defeated)
-	{
-		Console::GetInstance().MoveCursor(_position.x, _position.y);
-		Console::GetInstance().SetColor(12);
-		cout << static_cast<char>(254);
-	}
+void Enemy::Render() {
+	Console::GetInstance().Print(_position.x, _position.y, std::string(1, static_cast<char>(Symbols::Enemy)), 12);
 }
 
 bool Enemy::Attacked(int strength)
@@ -33,6 +30,8 @@ bool Enemy::Attacked(int strength)
 	if (_health == 0)
 	{
 		_defeated = true;
+		_removeDrawable = true;
+		Game::GetInstance().RemoveDrawable();
 		return true;
 	}
 	return false;

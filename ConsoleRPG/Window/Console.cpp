@@ -13,7 +13,7 @@ Console::~Console() {
 
 }
 
-void Console::MoveCursor(int x, int y) {
+void Console::MoveCursor(const int x, const int y) const {
 	COORD coord;
 	coord.X = x;
 	coord.Y = y;
@@ -33,4 +33,11 @@ char Console::GetChar(const int x, const int y) const {
 
 void Console::SetColor(const WORD color) const {
 	SetConsoleTextAttribute(_wHnd, color);
+}
+
+void Console::Print(const int x, const int y, const std::string& text, const int color) const
+{
+	MoveCursor(x, y);
+	SetColor(static_cast<WORD>(color));
+	std::cout << text.c_str();
 }

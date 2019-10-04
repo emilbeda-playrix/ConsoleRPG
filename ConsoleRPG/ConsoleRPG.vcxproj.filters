@@ -21,34 +21,34 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Console.cpp">
+    <ClCompile Include="Inventory\Armor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Level.cpp">
+    <ClCompile Include="Inventory\Inventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="Inventory\Item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
+    <ClCompile Include="Inventory\Weapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Inventory.cpp">
+    <ClCompile Include="Inventory\Potion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Armor.cpp">
+    <ClCompile Include="Characters\Enemies.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Weapon.cpp">
+    <ClCompile Include="Characters\Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Potion.cpp">
+    <ClCompile Include="Characters\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
+    <ClCompile Include="Window\Console.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Enemies.cpp">
+    <ClCompile Include="Map\Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,37 +56,40 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Console.h">
+    <ClInclude Include="Inventory\Armor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Level.h">
+    <ClInclude Include="Inventory\Inventory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="Inventory\Item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="commonInc.h">
+    <ClInclude Include="Inventory\Weapon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h">
+    <ClInclude Include="Inventory\Potion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Inventory.h">
+    <ClInclude Include="Characters\Enemies.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Armor.h">
+    <ClInclude Include="Characters\Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Weapon.h">
+    <ClInclude Include="Characters\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Potion.h">
+    <ClInclude Include="Common\commonInc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
+    <ClInclude Include="Window\Console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enemies.h">
+    <ClInclude Include="Map\Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Drawable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
