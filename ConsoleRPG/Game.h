@@ -16,10 +16,7 @@ private:
 	char _keyPressed;
 	Player _player;
 	Map _map;
-
 	Inventory _inventory;
-
-
 	Enemies _enemies;
 	
 public:
@@ -44,5 +41,5 @@ public:
 
 	void AddDrawable(Drawable* item);
 	void RemoveDrawable();
-	
+	void SaveGame();
 };

@@ -36,3 +36,13 @@ bool Enemy::Attacked(int strength)
 	}
 	return false;
 }
+
+void Enemy::Serialize(TiXmlElement& elem)
+{
+	elem.SetAttribute("x", _position.x);
+	elem.SetAttribute("y", _position.y);
+	elem.SetAttribute("_health", _health);
+	elem.SetAttribute("_attack", _attack);
+	elem.SetAttribute("_defence", _defence);
+	elem.SetAttribute("_defeated", _defeated);
+}

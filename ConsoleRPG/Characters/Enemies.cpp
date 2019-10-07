@@ -33,3 +33,17 @@ Enemy* Enemies::GetEnemyOnPlace(Point& place) {
 	}
 	return nullptr;
 }
+
+void Enemies::Serialize(TiXmlElement& elem)
+{
+	for (const std::shared_ptr<Enemy> &enemy : _enemyArray)
+	{
+		if (enemy)
+		{
+			TiXmlElement* el = new TiXmlElement("Enemy");
+			enemy->Serialize(*el);
+			elem.LinkEndChild(el);
+			
+		}
+	}
+}

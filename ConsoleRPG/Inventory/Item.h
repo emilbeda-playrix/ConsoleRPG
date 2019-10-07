@@ -1,7 +1,7 @@
 #pragma once
 #include "../Common/commonInc.h"
 
-class Item : public Drawable
+class Item : public Drawable, public Serializer
 {
 protected:
 	const char* _name;
@@ -29,4 +29,5 @@ public:
 	void AddDrawable();
 	void RemoveDrawable();
 	void Render() override;
+	void Serialize(TiXmlElement &elem) override;
 };

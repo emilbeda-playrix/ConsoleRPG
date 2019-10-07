@@ -22,3 +22,10 @@ void Weapon::UnequipWeapon() {
 	_equiped = false;
 	AddDrawable();
 }
+
+void Weapon::SerializeSpecific(TiXmlElement& elem)
+{
+	elem.SetAttribute("_attack", _attack);
+	elem.SetAttribute("_durability", _durability);
+	elem.SetAttribute("_level", _level);
+}

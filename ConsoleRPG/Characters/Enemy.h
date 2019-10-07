@@ -1,7 +1,7 @@
 #pragma once
 #include "../Common/commonInc.h"
 
-class Enemy : public Drawable {
+class Enemy : public Drawable, public Serializer {
 private:
 	Point _position;
 	int _health;
@@ -18,4 +18,5 @@ public:
 	bool Attacked(int strength);
 	int GetAttackStrength() const { return _attack; }
 	bool GetDefeated() const { return _defeated; }
+	void Serialize(TiXmlElement& elem) override;
 };

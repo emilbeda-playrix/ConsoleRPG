@@ -9,7 +9,7 @@ constexpr int inventoryX = 90;
 constexpr int inventoryY = 10;
 
 
-class Inventory : public Drawable
+class Inventory : public Drawable, public Serializer
 {
 private:
 	std::vector<std::shared_ptr<Item>> _itemArray;
@@ -35,5 +35,6 @@ public:
 
 	bool GetSelectActive() const { return _selectEnabled; }
 	std::weak_ptr<Item> GetSelectedItem() const { return _selectedItem; }
+	void Serialize(TiXmlElement &elem) override;
 };
 

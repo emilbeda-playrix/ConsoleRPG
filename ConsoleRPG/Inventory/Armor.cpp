@@ -20,3 +20,9 @@ void Armor::UnequipArmor() {
 	_equiped = false;
 	AddDrawable();
 }
+
+void Armor::SerializeSpecific(TiXmlElement& elem)
+{
+	elem.SetAttribute("_defence", _defence);
+	elem.SetAttribute("_level", _level);
+}

@@ -115,3 +115,13 @@ void Player::Render() {
 
 void Player::RenderPlayerStats() const {
 }
+
+void Player::Serialize(TiXmlElement& elem)
+{
+	elem.SetAttribute("x", GetPosition().x);
+	elem.SetAttribute("y", GetPosition().y);
+	elem.SetAttribute("_health", _health);
+	elem.SetAttribute("_level", _level);
+	elem.SetAttribute("_armor", _armor ? _armor->GetName(): "");
+	elem.SetAttribute("_weapon",  _weapon ? _weapon->GetName(): "");
+}

@@ -7,7 +7,7 @@
 constexpr int statsX = 90;
 constexpr int statsY = 0;
 
-class Player : public Drawable {
+class Player : public Drawable, public Serializer {
 private:
 	Point _position;
 	int _maxHealth;
@@ -19,6 +19,7 @@ public:
 	Player();
 	~Player();
 	Point GetPosition() const { return _position; }
+	
 	void Init();
 	void Render() override;
 	void RenderPlayerStats() const;
@@ -30,4 +31,5 @@ public:
 	int GetAttackStrength() const { return _weapon->GetAttack(); }
 	bool Attacked(int strength);
 	void AddLevel() { ++_level; }
+	void Serialize(TiXmlElement &elem) override;
 };

@@ -39,11 +39,11 @@ void Inventory::CheckRemoveFlags()
 	{
 		if (item && item->GetRemoveFlag())
 		{
+			_itemArray.erase(_itemArray.begin() + place);
 			break;
 		}
 		++place;
 	}
-	_itemArray.erase(_itemArray.begin() + place);
 }
 
 
@@ -121,6 +121,19 @@ void Inventory::MoveCursor(const bool dir) {
 		}
 		else {
 			if (_selectedIndex > 1) { _selectedIndex--; }
+		}
+	}
+}
+
+void Inventory::Serialize(TiXmlElement& elem)
+{
+	for (std::shared_ptr<Item> &item : _itemArray)
+	{
+		if(item)
+		{
+			TiXmlElement* el = new TiXmlElement("Item");
+			item->Serialize(*el);
+			elem.LinkEndChild(el);
 		}
 	}
 }

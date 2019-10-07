@@ -12,4 +12,5 @@ public:
 	int GetLevel() const { return _level; }
 	void EquipArmor();
 	void UnequipArmor();
+	void SerializeSpecific(TiXmlElement &elem);
 };

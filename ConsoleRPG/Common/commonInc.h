@@ -5,6 +5,9 @@
 #include <memory>
 #include <vector>
 #include "Drawable.h"
+#include "../TinyXml/tinyxml.h"
+#include "../TinyXml/tinystr.h"
+#include "Serializer.h"
 
 struct Point {
 	int x;

@@ -48,3 +48,28 @@ void Item::Render()
 {
 	Console::GetInstance().Print(_itemPos.x, _itemPos.y, std::string(1, static_cast<char>(Symbols::Item)), 9);
 }
+
+void Item::Serialize(TiXmlElement& elem)
+{
+	elem.SetAttribute("x", _itemPos.x);
+	elem.SetAttribute("y", _itemPos.y);
+	elem.SetAttribute("_name", _name);
+	elem.SetAttribute("_type", _type);
+	elem.SetAttribute("_picked", _picked);
+	elem.SetAttribute("_used", _used);
+	elem.SetAttribute("_equiped", _equiped);
+	
+	switch (_type)
+	{
+	case static_cast<int>(ItemTypes::Weapon) :
+		(dynamic_cast<Weapon*>(this))->SerializeSpecific(elem);
+		break;
+	case static_cast<int>(ItemTypes::Armor) :
+		(dynamic_cast<Armor*>(this))->SerializeSpecific(elem);
+		break;
+	case static_cast<int>(ItemTypes::Potion) :
+		(dynamic_cast<Potion*>(this))->SerializeSpecific(elem);	
+		break;
+	}
+	
+}

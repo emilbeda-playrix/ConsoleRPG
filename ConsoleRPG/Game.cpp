@@ -18,6 +18,7 @@ void Game::Init()
 
 void Game::LoadElements()
 {
+
 	_map.SetMap(1);
 	_map.LoadMap();
 	_player.MovePlayer(8, 3);
@@ -62,6 +63,7 @@ void Game::LoadElements()
 	_enemies.AddEnemy(48, 23, 90, 30, 20);
 	_enemies.AddEnemy(60, 30, 120, 40, 35);
 
+	SaveGame();
 	RenderGame();
 }
 
@@ -188,4 +190,32 @@ void Game::RemoveDrawable()
 		++place;
 	}
 	_drawableItems.erase(_drawableItems.begin() + place);
+}
+
+void Game::SaveGame()
+{
+	TiXmlDocument doc;
+	TiXmlDeclaration* decl = new TiXmlDeclaration("1.0", "", "");
+	doc.LinkEndChild(decl);
+	
+	TiXmlElement * root = new TiXmlElement("Level");
+	doc.LinkEndChild(root);
+	
+	TiXmlElement* map = new TiXmlElement("Map");
+	map->SetAttribute("_mapIndex", 1);
+	root->LinkEndChild(map);
+
+	TiXmlElement* player = new TiXmlElement("Player");
+	_player.Serialize(*player);
+	root->LinkEndChild(player);
+
+	TiXmlElement* inventory = new TiXmlElement("Inventory");
+	_inventory.Serialize(*inventory);
+	root->LinkEndChild(inventory);
+
+	TiXmlElement* enemies = new TiXmlElement("Enemies");
+	_enemies.Serialize(*enemies);
+	root->LinkEndChild(enemies);
+	
+	doc.SaveFile("Save.xml");
 }

@@ -7,3 +7,8 @@ Potion::Potion(const int x, const int y, const char* name, const int potionType)
 
 Potion::~Potion() {
 }
+
+void Potion::SerializeSpecific(TiXmlElement& elem)
+{
+	elem.SetAttribute("_potionType", _potionType);
+}

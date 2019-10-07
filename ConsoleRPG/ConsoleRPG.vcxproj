@@ -116,6 +116,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Inventory\Armor.cpp" />
+    <ClCompile Include="TinyXml\tinystr.cpp" />
+    <ClCompile Include="TinyXml\tinyxml.cpp" />
+    <ClCompile Include="TinyXml\tinyxmlerror.cpp" />
+    <ClCompile Include="TinyXml\tinyxmlparser.cpp" />
     <ClCompile Include="Window\Console.cpp" />
     <ClCompile Include="Characters\Enemies.cpp" />
     <ClCompile Include="Characters\Enemy.cpp" />
@@ -130,8 +134,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Drawable.h" />
+    <ClInclude Include="Common\Serializer.h" />
     <ClInclude Include="Inventory\Armor.h" />
     <ClInclude Include="Common\commonInc.h" />
+    <ClInclude Include="TinyXml\tinystr.h" />
+    <ClInclude Include="TinyXml\tinyxml.h" />
     <ClInclude Include="Window\Console.h" />
     <ClInclude Include="Characters\Enemies.h" />
     <ClInclude Include="Characters\Enemy.h" />

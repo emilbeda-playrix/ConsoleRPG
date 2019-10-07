@@ -17,4 +17,5 @@ public:
 	void SubDurability() { _durability > 0 ? _durability-- : _durability; }
 	int GetLevel() const { return _level; }
 	void ResetDurability() { _durability = _maxDurability; }
+	void SerializeSpecific(TiXmlElement &elem);
 };
