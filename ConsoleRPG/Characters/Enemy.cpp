@@ -2,7 +2,12 @@
 #include "../Game.h"
 
 Enemy::Enemy() {
-
+	_position.x = 0;
+	_position.y = 0;
+	_health = 0;
+	_attack = 0;
+	_defence = 0;
+	_defeated = false;
 }
 
 Enemy::~Enemy() {
@@ -16,7 +21,7 @@ Enemy::Enemy(const int x, const int y, const int health, const int attack, const
 	_attack = attack;
 	_defence = defence;
 	_defeated = false;
-	Game::GetInstance().AddDrawable(this);
+	Game::GetInstance()->AddDrawable(this);
 }
 
 void Enemy::Render() {
@@ -29,20 +34,33 @@ bool Enemy::Attacked(int strength)
 	_health -= (strength <= _health) ? strength : _health;
 	if (_health == 0)
 	{
+		Log::GetInstance().Add("Enemy Defeated");
 		_defeated = true;
 		_removeDrawable = true;
-		Game::GetInstance().RemoveDrawable();
+		Game::GetInstance()->RemoveDrawable();
 		return true;
+	} else
+	{
+		Log::GetInstance().Add("Enemy Attacked. Health: " + std::to_string(_health));
 	}
 	return false;
 }
 
-void Enemy::Serialize(TiXmlElement& elem)
+void Enemy::Serialize(tinyxml2::XMLElement& elem)
 {
 	elem.SetAttribute("x", _position.x);
 	elem.SetAttribute("y", _position.y);
 	elem.SetAttribute("_health", _health);
 	elem.SetAttribute("_attack", _attack);
 	elem.SetAttribute("_defence", _defence);
-	elem.SetAttribute("_defeated", _defeated);
+}
+
+void Enemy::Deserialize(tinyxml2::XMLElement& elem)
+{
+	elem.QueryIntAttribute("x", &_position.x);
+	elem.QueryIntAttribute("y", &_position.y);
+	elem.QueryIntAttribute("_health", &_health);
+	elem.QueryIntAttribute("_attack", &_attack);
+	elem.QueryIntAttribute("_defence", &_defence);
+	Game::GetInstance()->AddDrawable(this);
 }

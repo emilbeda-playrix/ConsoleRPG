@@ -4,8 +4,8 @@
 #include "../Inventory/Weapon.h"
 #include "../Inventory/Potion.h"
 
-constexpr int statsX = 90;
-constexpr int statsY = 0;
+constexpr int STATS_X = 90;
+constexpr int STATS_Y = 0;
 
 class Player : public Drawable, public Serializer {
 private:
@@ -21,15 +21,21 @@ public:
 	Point GetPosition() const { return _position; }
 	
 	void Init();
+
+	void ProcessInput(const int keyPressed);
+	
 	void Render() override;
-	void RenderPlayerStats() const;
-	void MovePlayer(const int x, const int y);
+	
+	void EquipItem(Item* item);
 	void EquipArmor(Armor* armor);
 	void EquipWeapon(Weapon* weapon);
 	void UsePotion(Potion* item);
-	void EquipItem(Item* item);
-	int GetAttackStrength() const { return _weapon->GetAttack(); }
-	bool Attacked(int strength);
+	
+	void Attacked(int strength);
 	void AddLevel() { ++_level; }
-	void Serialize(TiXmlElement &elem) override;
+	
+	int GetAttackStrength() const { return _weapon->GetAttack(); }
+	
+	void Serialize(tinyxml2::XMLElement &elem) override;
+	void Deserialize(tinyxml2::XMLElement& elem) override;
 };

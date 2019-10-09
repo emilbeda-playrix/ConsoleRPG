@@ -115,11 +115,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Events\Events.cpp" />
     <ClCompile Include="Inventory\Armor.cpp" />
-    <ClCompile Include="TinyXml\tinystr.cpp" />
-    <ClCompile Include="TinyXml\tinyxml.cpp" />
-    <ClCompile Include="TinyXml\tinyxmlerror.cpp" />
-    <ClCompile Include="TinyXml\tinyxmlparser.cpp" />
+    <ClCompile Include="Window\Log.cpp" />
+    <ClCompile Include="Menu\Menu.cpp" />
+    <ClCompile Include="TinyXml2\tinyxml2.cpp" />
     <ClCompile Include="Window\Console.cpp" />
     <ClCompile Include="Characters\Enemies.cpp" />
     <ClCompile Include="Characters\Enemy.cpp" />
@@ -135,10 +135,12 @@
   <ItemGroup>
     <ClInclude Include="Common\Drawable.h" />
     <ClInclude Include="Common\Serializer.h" />
+    <ClInclude Include="Events\Events.h" />
     <ClInclude Include="Inventory\Armor.h" />
     <ClInclude Include="Common\commonInc.h" />
-    <ClInclude Include="TinyXml\tinystr.h" />
-    <ClInclude Include="TinyXml\tinyxml.h" />
+    <ClInclude Include="Window\Log.h" />
+    <ClInclude Include="Menu\Menu.h" />
+    <ClInclude Include="TinyXml2\tinyxml2.h" />
     <ClInclude Include="Window\Console.h" />
     <ClInclude Include="Characters\Enemies.h" />
     <ClInclude Include="Characters\Enemy.h" />

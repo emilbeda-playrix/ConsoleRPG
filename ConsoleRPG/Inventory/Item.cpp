@@ -2,6 +2,14 @@
 #include "../Game.h"
 
 Item::Item() {
+	_removeFlag = false;
+	_itemPos.x = 0;
+	_itemPos.y = 0;
+	_picked = false;
+	_used = false;
+	_equipped = false;
+	_type = 0;
+	_name = "";
 }
 
 Item::Item(const int x, const int y, const int type, const char* name) {
@@ -20,7 +28,7 @@ void Item::AddItem(const int x, const int y, const int type, const char* name) {
 	_itemPos.y = y;
 	_picked = false;
 	_used = false;
-	_equiped = false;
+	_equipped = false;
 	_type = type;
 	_name = name;
 
@@ -35,13 +43,13 @@ void Item::PickItem() {
 
 void Item::AddDrawable()
 {
-	Game::GetInstance().AddDrawable(this);
+	Game::GetInstance()->AddDrawable(this);
 }
 
 void Item::RemoveDrawable()
 {
 	_removeDrawable = true;
-	Game::GetInstance().RemoveDrawable();
+	Game::GetInstance()->RemoveDrawable();
 }
 
 void Item::Render()
@@ -49,15 +57,15 @@ void Item::Render()
 	Console::GetInstance().Print(_itemPos.x, _itemPos.y, std::string(1, static_cast<char>(Symbols::Item)), 9);
 }
 
-void Item::Serialize(TiXmlElement& elem)
+void Item::Serialize(tinyxml2::XMLElement& elem)
 {
 	elem.SetAttribute("x", _itemPos.x);
 	elem.SetAttribute("y", _itemPos.y);
-	elem.SetAttribute("_name", _name);
+	elem.SetAttribute("_name", _name.c_str());
 	elem.SetAttribute("_type", _type);
 	elem.SetAttribute("_picked", _picked);
 	elem.SetAttribute("_used", _used);
-	elem.SetAttribute("_equiped", _equiped);
+	elem.SetAttribute("_equipped", _equipped);
 	
 	switch (_type)
 	{
@@ -72,4 +80,20 @@ void Item::Serialize(TiXmlElement& elem)
 		break;
 	}
 	
+}
+
+void Item::Deserialize(tinyxml2::XMLElement& elem)
+{
+	elem.QueryIntAttribute("x", &_itemPos.x);
+	elem.QueryIntAttribute("y", &_itemPos.y);
+	_name = elem.Attribute("_name");
+	//elem.QueryStringAttribute("_name", &_name);
+	elem.QueryIntAttribute("_type", &_type);
+	elem.QueryBoolAttribute("_picked", &_picked);
+	elem.QueryBoolAttribute("_used", &_used);
+	elem.QueryBoolAttribute("_equipped", &_equipped);
+	if (!_picked)
+	{
+		AddDrawable();
+	}
 }

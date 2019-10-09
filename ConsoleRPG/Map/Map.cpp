@@ -2,25 +2,21 @@
 #include  "../Game.h"
 
 Map::Map() {
-	
-}
-
-void Map::SetMap(const int mapIndex) {
 	_mapHeight = 0;
-	_mapIndex = mapIndex;
-	_fileName = "Level_" + std::to_string(_mapIndex) + ".txt";
+	_mapIndex = 1;
 }
 
 Map::~Map() {
-	delete[] _mapLine;
+	
 }
 
 void Map::Init()
 {
-	Game::GetInstance().AddDrawable(this);
+	Game::GetInstance()->AddDrawable(this);
 }
 
 void Map::LoadMap() {
+	_fileName = "Level_" + std::to_string(_mapIndex) + ".txt";
 	int index = 0;
 	std::ifstream openFile(_fileName.c_str());
 	if (openFile.is_open()) {
@@ -38,4 +34,20 @@ void Map::Render() {
 	for (int i = 0; i <= _mapHeight; i++) {
 		Console::GetInstance().Print(0, i, _mapLine[i], 15);
 	}
+}
+
+void Map::Serialize(tinyxml2::XMLElement& elem)
+{
+	elem.SetAttribute("_mapIndex", _mapIndex);
+	elem.SetAttribute("_finishX", _finish.x);
+	elem.SetAttribute("_finishY", _finish.y);
+}
+
+
+void Map::Deserialize(tinyxml2::XMLElement& elem)
+{
+	elem.QueryIntAttribute("_mapIndex", &_mapIndex);
+	elem.QueryIntAttribute("_finishX", &_finish.x);
+	elem.QueryIntAttribute("_finishY", &_finish.y);
+	LoadMap();
 }

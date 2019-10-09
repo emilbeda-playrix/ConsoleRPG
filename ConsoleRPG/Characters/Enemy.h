@@ -18,5 +18,6 @@ public:
 	bool Attacked(int strength);
 	int GetAttackStrength() const { return _attack; }
 	bool GetDefeated() const { return _defeated; }
-	void Serialize(TiXmlElement& elem) override;
+	void Serialize(tinyxml2::XMLElement& elem) override;
+	void Deserialize(tinyxml2::XMLElement& elem) override;
 };

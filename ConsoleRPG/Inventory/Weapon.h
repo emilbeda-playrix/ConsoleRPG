@@ -8,6 +8,7 @@ private:
 	int _maxDurability;
 	int _level;
 public:
+	Weapon();
 	Weapon(const int x, const int y, const char* name, const int attack, const int durability, const int level);
 	virtual ~Weapon();
 	void EquipWeapon();
@@ -17,5 +18,6 @@ public:
 	void SubDurability() { _durability > 0 ? _durability-- : _durability; }
 	int GetLevel() const { return _level; }
 	void ResetDurability() { _durability = _maxDurability; }
-	void SerializeSpecific(TiXmlElement &elem);
+	void SerializeSpecific(tinyxml2::XMLElement &elem);
+	void DeserializeSpecific(tinyxml2::XMLElement& elem);
 };

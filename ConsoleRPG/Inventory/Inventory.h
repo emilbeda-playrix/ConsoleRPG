@@ -5,8 +5,8 @@
 #include "Weapon.h"
 #include "Potion.h"
 
-constexpr int inventoryX = 90;
-constexpr int inventoryY = 10;
+constexpr int INVENTORY_X = 90;
+constexpr int INVENTORY_Y = 10;
 
 
 class Inventory : public Drawable, public Serializer
@@ -16,8 +16,12 @@ private:
 	int _selectedIndex;
 	int _usableItemCount;
 	bool _selectEnabled;
-	std::weak_ptr<Item> _selectedItem;
+	std::shared_ptr<Item> _selectedItem;
 public:
+	static Inventory& GetInstance() {
+		static Inventory instance;
+		return instance;
+	}
 	Inventory();
 	~Inventory();
 	void Init();
@@ -27,14 +31,18 @@ public:
 	void Render() override;
 	void PickItemOnPlace(const int x, const int y);
 	void CheckRemoveFlags();
-	Armor* GetArmorByName(const char* name);
+	Armor* GetArmorByName(const char* name); 
 	Weapon* GetWeaponByName(const char* name);
 
+	void ProcessInput(const int keyPressed);
 	void ToggleSelect();
 	void MoveCursor(const bool dir);
 
 	bool GetSelectActive() const { return _selectEnabled; }
 	std::weak_ptr<Item> GetSelectedItem() const { return _selectedItem; }
-	void Serialize(TiXmlElement &elem) override;
+	
+	void Serialize(tinyxml2::XMLElement& elem ) override;
+	void Serialize(tinyxml2::XMLElement &elem, tinyxml2::XMLDocument &doc);
+	void Deserialize(tinyxml2::XMLElement& elem) override;
 };
 

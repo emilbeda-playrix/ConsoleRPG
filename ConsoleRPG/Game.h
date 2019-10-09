@@ -2,44 +2,55 @@
 
 #include <iostream>
 #include <conio.h>
-#include <stdlib.h>
 #include "Common/commonInc.h"
 #include "Map/Map.h"
 #include "Characters/Player.h"
 #include "Characters/Enemies.h"
 #include "Inventory/Inventory.h"
+#include "Events/Events.h"
+#include "Window/Log.h"
 
 
 class Enemy;
 class Game {
 private:
-	char _keyPressed;
+	static Game* _instance;
 	Player _player;
 	Map _map;
 	Inventory _inventory;
 	Enemies _enemies;
-	
+	friend class Player;
+	friend  class Inventory;
+	bool _gameActive;
 public:
-	Game(Game const&) = delete;
-	void operator = (Game const&) = delete;
-	
 	std::vector<Drawable*> _drawableItems;
-	static Game& GetInstance() {
-		static Game instance;
-		return instance;
+	static Game* GetInstance() {
+		if (_instance == nullptr)
+		{
+			_instance = new Game();
+		}
+		return _instance;
+	}
+	static void DeleteInstance()
+	{
+		delete _instance;
+		_instance = nullptr;
 	}
 	Game();
-	virtual ~Game();
+	~Game();
 
 	void Init();
-	void LoadElements();
-	void GameLoop();
-	void RenderGame();
-	void MovePlayer();
-	void InventoryInput();
-	void Fight(Enemy* enemy);
+	
+	bool GameLoop();
+	
+	void Fight(Point& position);
+	void GameOver();
+	void GameCompleted();
 
 	void AddDrawable(Drawable* item);
 	void RemoveDrawable();
+	void RenderGame();
+	
 	void SaveGame();
+	void LoadGame(const bool newGame);
 };

@@ -34,16 +34,26 @@ Enemy* Enemies::GetEnemyOnPlace(Point& place) {
 	return nullptr;
 }
 
-void Enemies::Serialize(TiXmlElement& elem)
+void Enemies::Serialize(tinyxml2::XMLElement& elem)
+{
+	
+}
+
+void Enemies::Serialize(tinyxml2::XMLElement& elem, tinyxml2::XMLDocument& doc)
 {
 	for (const std::shared_ptr<Enemy> &enemy : _enemyArray)
 	{
 		if (enemy)
 		{
-			TiXmlElement* el = new TiXmlElement("Enemy");
+			tinyxml2::XMLElement* el = doc.NewElement("Enemy");
 			enemy->Serialize(*el);
 			elem.LinkEndChild(el);
 			
 		}
 	}
+}
+void Enemies::Deserialize(tinyxml2::XMLElement& elem)
+{
+	_enemyArray.emplace_back(std::make_shared<Enemy>());
+	(dynamic_cast<Enemy*>(_enemyArray.back().get()))->Deserialize(elem);
 }
