@@ -3,7 +3,6 @@
 
 int main() {
 	
-	//Menu* menu = Menu::GetInstance();
 	bool menuActive = true;
 	while (menuActive)
 	{

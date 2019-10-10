@@ -13,10 +13,11 @@ protected:
 	Point _itemPos;
 public:
 	Item();
-	Item(const int x, const int y, const int type, const char* name);
 	virtual ~Item();
+	
 	void AddItem(const int x, const int y, const int type, const char* name);
 	void PickItem();
+	
 	const char* GetName() const { return _name.c_str(); }
 	int GetType() const { return _type; }
 	bool GetPicked() const { return _picked; }
@@ -28,7 +29,9 @@ public:
 
 	void AddDrawable();
 	void RemoveDrawable();
+	
 	void Render() override;
+	
 	void Serialize(tinyxml2::XMLElement &elem) override;
 	void Deserialize(tinyxml2::XMLElement& elem) override;
 };

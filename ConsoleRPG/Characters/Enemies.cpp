@@ -8,10 +8,6 @@ Enemies::~Enemies() {
 	
 }
 
-void Enemies::AddEnemy(const int x, const int y, const int health, const int attack, const int defence) {
-	_enemyArray.emplace_back(std::make_shared<Enemy>(x, y, health, attack, defence));
-}
-
 void Enemies::RemoveDefeated()
 {
 	int place = 0;
@@ -52,6 +48,7 @@ void Enemies::Serialize(tinyxml2::XMLElement& elem, tinyxml2::XMLDocument& doc)
 		}
 	}
 }
+
 void Enemies::Deserialize(tinyxml2::XMLElement& elem)
 {
 	_enemyArray.emplace_back(std::make_shared<Enemy>());

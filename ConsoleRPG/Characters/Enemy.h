@@ -10,14 +10,16 @@ private:
 	bool _defeated;
 public:
 	Enemy();
-	Enemy(const int x, const int y, const int health, const int attack, const int defence);
 	~Enemy();
 
-	void Render() override;
-	Point GetPosition() const { return _position; }
 	bool Attacked(int strength);
+	
+	Point GetPosition() const { return _position; }
 	int GetAttackStrength() const { return _attack; }
 	bool GetDefeated() const { return _defeated; }
+
+	void Render() override;
+	
 	void Serialize(tinyxml2::XMLElement& elem) override;
 	void Deserialize(tinyxml2::XMLElement& elem) override;
 };

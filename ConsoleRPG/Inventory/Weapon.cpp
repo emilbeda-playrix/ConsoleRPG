@@ -8,14 +8,6 @@ Weapon::Weapon()
 	_level = 0;
 }
 
-Weapon::Weapon(const int x, const int y, const char* name, const int attack, const int durability, const int level) {
-	_attack = attack;
-	_maxDurability = durability;
-	_durability = durability;
-	_level = level;
-	AddItem(x, y, static_cast<int>(ItemTypes::Weapon), name);
-}
-
 Weapon::~Weapon() {
 
 }
@@ -31,7 +23,7 @@ void Weapon::UnequipWeapon() {
 	AddDrawable();
 }
 
-void Weapon::SerializeSpecific(tinyxml2::XMLElement& elem)
+void Weapon::SerializeSpecific(tinyxml2::XMLElement& elem) const
 {
 	elem.SetAttribute("_attack", _attack);
 	elem.SetAttribute("_maxDurability", _maxDurability);

@@ -6,12 +6,6 @@ Armor::Armor()
 	_level = 0;
 }
 
-Armor::Armor(const int x, const int y, const char* name, const int defence, const int level) {
-	_defence = defence;
-	_level = level;
-	AddItem(x, y, static_cast<int>(ItemTypes::Armor), name);
-}
-
 Armor::~Armor() {
 
 }

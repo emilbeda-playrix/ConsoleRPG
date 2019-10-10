@@ -13,7 +13,7 @@ Potion::Potion(const int x, const int y, const char* name, const int potionType)
 Potion::~Potion() {
 }
 
-void Potion::SerializeSpecific(tinyxml2::XMLElement& elem)
+void Potion::SerializeSpecific(tinyxml2::XMLElement& elem) const
 {
 	elem.SetAttribute("_potionType", _potionType);
 }

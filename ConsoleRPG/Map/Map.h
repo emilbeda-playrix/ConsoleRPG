@@ -12,6 +12,7 @@ private:
 public:
 	Map();
 	~Map();
+	
 	Point GetFinish() const { return _finish; }
 	
 	void Init();

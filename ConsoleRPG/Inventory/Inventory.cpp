@@ -18,22 +18,10 @@ void Inventory::Init()
 	Game::GetInstance()->AddDrawable(this);
 }
 
-void Inventory::AddArmor(int x, int y, const char* name, int defence, int level)
-{
-	_itemArray.emplace_back(std::make_shared<Armor>(x, y, name, defence, level));
-}
-
-void Inventory::AddWeapon(const int x, const int y, const char* name, const int attack, const int durability, const int level)
-{
-	_itemArray.emplace_back(std::make_shared<Weapon>(x, y, name, attack, durability, level));
-}
-
-
 void Inventory::AddPotion(const int x, const int y, const char* name, const int potionType)
 {
 	_itemArray.emplace_back(std::make_shared<Potion>(x, y, name, potionType));
 }
-
 
 void Inventory::CheckRemoveFlags()
 {
@@ -48,7 +36,6 @@ void Inventory::CheckRemoveFlags()
 		++place;
 	}
 }
-
 
 Armor* Inventory::GetArmorByName(const char* name) {
 	for (const std::shared_ptr<Item> &item : _itemArray) {
@@ -70,26 +57,6 @@ Weapon* Inventory::GetWeaponByName(const char* name) {
 	return nullptr;
 }
 
-void Inventory::Render() {
-	int cursorPos = INVENTORY_Y;
-	int itemIndex = 1;
-
-	Console::GetInstance().Print(INVENTORY_X, INVENTORY_Y, "Inventory:", 10);
-
-	for (const std::shared_ptr<Item> &item : _itemArray) {
-		if (item->GetPicked() && !item->GetEquipped()) {
-			if (_selectEnabled && itemIndex == _selectedIndex) {
-				Console::GetInstance().Print(INVENTORY_X, ++cursorPos, std::to_string((itemIndex++)) + ": " + item->GetName(), 250);
-				_selectedItem = item;
-			}
-			else {
-				Console::GetInstance().Print(INVENTORY_X, ++cursorPos, std::to_string((itemIndex++)) + ": " + item->GetName(), 10);
-			}
-		}
-	}
-	Console::GetInstance().SetColor(10);
-}
-
 void Inventory::PickItemOnPlace(const int x, const int y) {
 	for (const std::shared_ptr<Item> &item : _itemArray) {
 		if (!item->GetPicked() && item->GetPosition().x == x && item->GetPosition().y == y) {
@@ -104,10 +71,10 @@ void Inventory::ProcessInput(const int keyPressed)
 	switch (keyPressed)
 	{
 		case static_cast<int>(KeyPressed::KeyUp):
-			MoveCursor(false);
+			if (_selectedIndex > 1) { _selectedIndex--; }
 			break;
 		case static_cast<int>(KeyPressed::KeyDown):
-			MoveCursor(true);
+			if (_selectedIndex < _usableItemCount) { _selectedIndex++; }
 			break;
 		case static_cast<int>(KeyPressed::KeyInventory):
 			ToggleSelect();
@@ -130,7 +97,6 @@ void Inventory::ProcessInput(const int keyPressed)
 	}
 }
 
-
 void Inventory::ToggleSelect() {
 	if (!_selectEnabled) {
 		_usableItemCount = 0;
@@ -150,20 +116,28 @@ void Inventory::ToggleSelect() {
 	}
 }
 
-void Inventory::MoveCursor(const bool dir) {
-	if (_selectEnabled) {
-		if (dir) {
-			if (_selectedIndex < _usableItemCount) { _selectedIndex++; }
-		}
-		else {
-			if (_selectedIndex > 1) { _selectedIndex--; }
+void Inventory::Render() {
+	int cursorPos = INVENTORY_Y;
+	int itemIndex = 1;
+
+	Console::GetInstance().Print(INVENTORY_X, INVENTORY_Y, "Inventory(press i):", 10);
+
+	for (const std::shared_ptr<Item> &item : _itemArray) {
+		if (item->GetPicked() && !item->GetEquipped()) {
+			if (_selectEnabled && itemIndex == _selectedIndex) {
+				Console::GetInstance().Print(INVENTORY_X, ++cursorPos, std::to_string((itemIndex++)) + ": " + item->GetName(), 250);
+				_selectedItem = item;
+			}
+			else {
+				Console::GetInstance().Print(INVENTORY_X, ++cursorPos, std::to_string((itemIndex++)) + ": " + item->GetName(), 10);
+			}
 		}
 	}
+	Console::GetInstance().SetColor(10);
 }
 
 void Inventory::Serialize(tinyxml2::XMLElement& elem)
 {
-
 }
 
 void Inventory::Serialize(tinyxml2::XMLElement& elem, tinyxml2::XMLDocument& doc)

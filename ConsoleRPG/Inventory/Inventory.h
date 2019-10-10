@@ -25,8 +25,6 @@ public:
 	Inventory();
 	~Inventory();
 	void Init();
-	void AddArmor(int x, int y, const char* name, int defence, int level);
-	void AddWeapon(const int x, const int y, const char* name, const int attack, const int durability, const int level);
 	void AddPotion(const int x, const int y, const char* name, const int potionType);
 	void Render() override;
 	void PickItemOnPlace(const int x, const int y);
@@ -36,7 +34,6 @@ public:
 
 	void ProcessInput(const int keyPressed);
 	void ToggleSelect();
-	void MoveCursor(const bool dir);
 
 	bool GetSelectActive() const { return _selectEnabled; }
 	std::weak_ptr<Item> GetSelectedItem() const { return _selectedItem; }

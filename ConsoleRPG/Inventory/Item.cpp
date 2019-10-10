@@ -12,13 +12,6 @@ Item::Item() {
 	_name = "";
 }
 
-Item::Item(const int x, const int y, const int type, const char* name) {
-	_removeFlag = false;
-	_picked = false;
-	_used = false;
-	AddItem(x, y, type, name);
-}
-
 Item::~Item() {
 }
 
@@ -78,8 +71,9 @@ void Item::Serialize(tinyxml2::XMLElement& elem)
 	case static_cast<int>(ItemTypes::Potion) :
 		(dynamic_cast<Potion*>(this))->SerializeSpecific(elem);	
 		break;
+	default:
+		break;
 	}
-	
 }
 
 void Item::Deserialize(tinyxml2::XMLElement& elem)
@@ -87,7 +81,6 @@ void Item::Deserialize(tinyxml2::XMLElement& elem)
 	elem.QueryIntAttribute("x", &_itemPos.x);
 	elem.QueryIntAttribute("y", &_itemPos.y);
 	_name = elem.Attribute("_name");
-	//elem.QueryStringAttribute("_name", &_name);
 	elem.QueryIntAttribute("_type", &_type);
 	elem.QueryBoolAttribute("_picked", &_picked);
 	elem.QueryBoolAttribute("_used", &_used);

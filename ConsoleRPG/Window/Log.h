@@ -13,11 +13,15 @@ public:
 		static Log instance;
 		return instance;
 	}
+	
 	Log();
 	~Log();
+	
 	void Init();
+	
 	void Add(std::string text);
 	void Clear();
+	
 	void Render() override;
 };
 

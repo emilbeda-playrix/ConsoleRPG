@@ -24,8 +24,6 @@ public:
 
 	void ProcessInput(const int keyPressed);
 	
-	void Render() override;
-	
 	void EquipItem(Item* item);
 	void EquipArmor(Armor* armor);
 	void EquipWeapon(Weapon* weapon);
@@ -35,6 +33,8 @@ public:
 	void AddLevel() { ++_level; }
 	
 	int GetAttackStrength() const { return _weapon->GetAttack(); }
+	
+	void Render() override;
 	
 	void Serialize(tinyxml2::XMLElement &elem) override;
 	void Deserialize(tinyxml2::XMLElement& elem) override;

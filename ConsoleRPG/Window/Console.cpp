@@ -1,4 +1,5 @@
 #include "Console.h"
+
 Console::Console() {
 	SMALL_RECT consoleWriteArea = { 0,0, WIDTH - 1, HEIGHT - 1 };
 	_wHnd = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -9,6 +10,7 @@ Console::Console() {
 	cursorInfo.dwSize = 1;
 	SetConsoleCursorInfo(_wHnd, &cursorInfo);
 }
+
 Console::~Console() {
 
 }

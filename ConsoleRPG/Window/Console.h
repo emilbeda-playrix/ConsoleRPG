@@ -14,11 +14,14 @@ public:
 		static Console instance;
 		return instance;
 	}
+	
 	Console();
 	~Console();
+	
 	void MoveCursor(const int x, const int y) const;
 	char GetChar(const int x, const int y) const;
 	void SetColor(const WORD color) const ;
+	
 	void Print(const int x, const int y, const std::string& text, const int color) const;
 };
 

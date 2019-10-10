@@ -24,6 +24,7 @@ private:
 	bool _gameActive;
 public:
 	std::vector<Drawable*> _drawableItems;
+	
 	static Game* GetInstance() {
 		if (_instance == nullptr)
 		{
@@ -31,11 +32,13 @@ public:
 		}
 		return _instance;
 	}
+	
 	static void DeleteInstance()
 	{
 		delete _instance;
 		_instance = nullptr;
 	}
+	
 	Game();
 	~Game();
 

@@ -11,7 +11,9 @@ public:
 		static Events instance;
 		return instance;
 	}
+	
 	Events();
 	~Events();
+	
 	int WaitKeyPress();
 };
